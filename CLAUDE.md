@@ -25,6 +25,17 @@ screen readers.
 **Goals, in priority order:** fast, low cost, simple, low upkeep.
 Must work well on mobile and be readable by crawlers/screen readers.
 
+## Structure
+
+Two pages, sharing `styles.css`:
+- `index.html` — landing page. Intro prose (the ABOUT block is the owner's to
+  write; don't rewrite it unasked) plus an `ls`-style link listing.
+- `resume.html` — skills, experience, education.
+- `resume.pdf` — built from `resume-src/resume-web.tex` via
+  `latexmk -pdf`. LinkedIn-only contact; no phone or email anywhere.
+
+Search: both pages are indexable; `robots.txt` disallows `resume.pdf` only.
+
 ## Still open
 
 - **Hosting.** Recommendation on the table: Cloudflare Pages (free, unlimited
