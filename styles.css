@@ -1,0 +1,228 @@
+/* Griffin Garland — terminal-aesthetic portfolio.
+   Plain CSS, no build step. Dark by design: it's a terminal. */
+
+:root {
+  --bg:        #0a0e0d;
+  --panel:     #0f1513;
+  --bar:       #161d1a;
+  --fg:        #c6d4cc;
+  --fg-strong: #e8f2ec;
+  --dim:       #6d8177;
+  --accent:    #57d16c;
+  --amber:     #e0af68;
+  --rule:      #1f2b26;
+
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Monaco,
+          Consolas, "DejaVu Sans Mono", "Liberation Mono", monospace;
+
+  --measure: 74ch;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  padding: clamp(0.75rem, 3vw, 2.5rem) clamp(0.5rem, 3vw, 2rem);
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--mono);
+  font-size: clamp(0.875rem, 0.82rem + 0.25vw, 1rem);
+  line-height: 1.65;
+  /* faint phosphor wash behind the window */
+  background-image: radial-gradient(
+    120% 80% at 50% 0%, #10201a 0%, var(--bg) 60%);
+  background-attachment: fixed;
+}
+
+.skip {
+  position: absolute; left: -9999px;
+  background: var(--accent); color: #04140a;
+  padding: 0.5rem 0.9rem; border-radius: 4px; z-index: 10;
+}
+.skip:focus { left: 1rem; top: 1rem; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ---- CRT scanline overlay -------------------------------------------- */
+.crt {
+  position: fixed; inset: 0; pointer-events: none; z-index: 5;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0,0,0,0)   0px,
+    rgba(0,0,0,0)   2px,
+    rgba(0,0,0,.16) 3px,
+    rgba(0,0,0,.16) 4px);
+  opacity: .45;
+  mix-blend-mode: multiply;
+}
+
+/* ---- window chrome ---------------------------------------------------- */
+.window {
+  max-width: 60rem;
+  margin: 0 auto;
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(87,209,108,.05),
+              0 24px 60px -20px rgba(0,0,0,.9);
+}
+
+.titlebar {
+  display: flex; align-items: center; gap: .75rem;
+  padding: .55rem .9rem;
+  background: var(--bar);
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+}
+.dots { display: flex; gap: .45rem; }
+.dots i { width: .7rem; height: .7rem; border-radius: 50%; display: block; }
+.dots .r { background: #ff5f57; }
+.dots .y { background: #febc2e; }
+.dots .g { background: #28c840; }
+
+.titletext {
+  color: var(--dim);
+  font-size: .78em;
+  letter-spacing: .01em;
+  /* center against the whole bar, not the flex flow */
+  position: absolute; left: 0; right: 0;
+  text-align: center; pointer-events: none;
+}
+
+.screen { padding: clamp(1.25rem, 4vw, 2.75rem); }
+
+/* ---- prompt lines ------------------------------------------------------ */
+.line {
+  color: var(--accent);
+  margin: 2.75rem 0 .85rem;
+  font-size: .95em;
+  text-shadow: 0 0 12px rgba(87,209,108,.35);
+  overflow-wrap: anywhere;
+}
+.intro .line { margin-top: 0; }
+.prompt { color: var(--amber); margin-right: .55rem; user-select: none; }
+
+.cursor {
+  display: inline-block;
+  width: .58em; height: 1.05em;
+  background: var(--accent);
+  vertical-align: -.18em;
+  margin-left: .18em;
+  animation: blink 1.15s steps(1) infinite;
+  box-shadow: 0 0 10px rgba(87,209,108,.55);
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* ---- header ------------------------------------------------------------ */
+.intro h1 {
+  margin: 0;
+  font-size: clamp(1.75rem, 1.1rem + 3vw, 2.9rem);
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  color: var(--fg-strong);
+  text-shadow: 0 0 24px rgba(200,255,220,.14);
+}
+.role {
+  margin: .35rem 0 1.1rem;
+  color: var(--accent);
+  font-size: 1.02em;
+}
+
+.meta, .contact {
+  list-style: none; display: flex; flex-wrap: wrap;
+  gap: .4rem 1.1rem; padding: 0; margin: 0;
+  font-size: .9em; color: var(--dim);
+}
+.meta li, .contact li { display: flex; align-items: center; }
+.meta li + li::before, .contact li + li::before {
+  content: "·"; color: var(--rule);
+  margin-right: 1.1rem; margin-left: -.75rem;
+}
+
+/* ---- links ------------------------------------------------------------- */
+a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(87,209,108,.3); }
+a:hover { color: var(--fg-strong); border-bottom-color: currentColor; background: rgba(87,209,108,.08); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+/* ---- prose / skills ---------------------------------------------------- */
+.prose { max-width: var(--measure); margin: 0; }
+
+.skills { margin: 0; max-width: var(--measure); }
+.skills dt {
+  color: var(--fg-strong); font-weight: 700;
+  margin-top: .7rem; font-size: .92em;
+}
+.skills dt:first-child { margin-top: 0; }
+.skills dd { margin: .1rem 0 0; color: var(--fg); }
+
+/* ---- jobs -------------------------------------------------------------- */
+.job {
+  max-width: var(--measure);
+  margin: 0 0 2rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--rule);
+}
+.job:last-child { margin-bottom: 0; }
+.job:hover { border-left-color: rgba(87,209,108,.45); }
+
+.job h3 {
+  margin: 0; font-size: 1.03em; color: var(--fg-strong);
+  letter-spacing: -.005em;
+}
+.where { margin: .1rem 0 0; color: var(--fg); font-size: .92em; }
+.when  { margin: .1rem 0 .6rem; color: var(--dim); font-size: .85em; }
+.dim   { color: var(--dim); }
+.sep   { color: var(--rule); }
+
+.job ul { margin: 0; padding-left: 1.15rem; list-style: none; }
+.job li { position: relative; margin: .42rem 0; }
+.job li::before {
+  content: "▸";
+  position: absolute; left: -1.15rem;
+  color: var(--accent); opacity: .65;
+}
+strong { color: var(--fg-strong); font-weight: 700; }
+
+footer { margin-top: 3rem; }
+.last { margin-bottom: 0; }
+
+/* ---- motion / contrast preferences ------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .cursor { animation: none; }
+  * { transition: none !important; }
+}
+@media (prefers-contrast: more) {
+  :root { --fg: #e4efe9; --dim: #9fb3a8; --rule: #3a4a43; }
+  .crt { display: none; }
+}
+
+/* ---- small screens ------------------------------------------------------ */
+@media (max-width: 34rem) {
+  body { padding: 0; background-image: none; }
+  .window { border: 0; border-radius: 0; box-shadow: none; }
+  .titletext { display: none; }
+  .meta li + li::before, .contact li + li::before { content: none; margin: 0; }
+  .meta, .contact { flex-direction: column; gap: .3rem; }
+}
+
+/* ---- print: a clean paper resume from Cmd+P ---------------------------- */
+@media print {
+  .crt, .titlebar, .cursor, .skip { display: none !important; }
+  body { background: #fff; color: #000; padding: 0; font-size: 10.5pt; }
+  .window { border: 0; box-shadow: none; max-width: none; background: #fff; }
+  .screen { padding: 0; }
+  .line { color: #000; text-shadow: none; margin: 1.1rem 0 .4rem; font-weight: 700; }
+  .prompt { color: #666; }
+  a { color: #000; border: 0; }
+  .job { break-inside: avoid; border-left-color: #ccc; }
+  .job h3, .intro h1, strong { color: #000; text-shadow: none; }
+  .role { color: #000; }
+  .when, .dim, .meta { color: #444; }
+}

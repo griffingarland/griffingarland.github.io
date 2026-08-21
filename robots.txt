@@ -1,0 +1,9 @@
+# Indexing is intentional: this site should be what comes up when someone
+# searches "Griffin Garland".
+User-agent: *
+Allow: /
+
+# The PDF stays out. It's the detailed version, it gets downloaded and
+# forwarded, and unlike a page you can't edit a copy back out of someone's
+# index. Hand it out via the link instead.
+Disallow: /resume.pdf

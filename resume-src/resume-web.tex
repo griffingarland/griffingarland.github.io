@@ -1,0 +1,222 @@
+%-------------------------
+% Resume in Latex
+% Author : Jake Gutierrez
+% Based off of: https://github.com/sb2nov/resume
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+
+%----------FONT OPTIONS----------
+% sans-serif
+% \usepackage[sfdefault]{FiraSans}
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+%\usepackage[default]{sourcesanspro}
+
+% serif
+% \usepackage{CormorantGaramond}
+% \usepackage{charter}
+\usepackage[osf]{ebgaramond}
+
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.6in}
+\addtolength{\evensidemargin}{-0.6in}
+\addtolength{\textwidth}{1.2in}
+\addtolength{\topmargin}{-.75in}
+\addtolength{\textheight}{1.45in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      {\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING----------
+% Web variant: contact details reduced to LinkedIn only.
+% Phone and email are deliberately omitted -- this PDF is served publicly
+% from griffingarland.com and would otherwise be scraped.
+% The full-contact version lives in ~/src/resume/resume.tex.
+\begin{center}
+    \textbf{\Huge \scshape Griffin Garland} \\ \vspace{4pt}
+    \small New York, NY $|$
+    \href{https://www.linkedin.com/in/griffin-g-836a7659/}{\underline{linkedin.com/in/griffin-g-836a7659}}
+\end{center}
+
+
+%-----------SUMMARY-----------
+\section{Summary}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+    Software engineer with 10+ years of experience building C++ and Python systems in financial technology, currently leading the static
+    analysis and automated refactoring team at Bloomberg. Depth in static analysis, large-scale migration, and high-performance distributed systems.
+    }}
+ \end{itemize}
+
+
+%-----------TECHNICAL SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: C++, Python, C, SQL, Bash} \\
+     \textbf{Systems}{: Linux, Distributed Systems, Redis, RabbitMQ, Kafka, RESTful APIs, AWS} \\
+     \textbf{Build \& Tooling}{: Static Analysis, CMake, Git, SVN, CI/CD, Docker, Claude Code} \\
+    }}
+ \end{itemize}
+
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+     \resumeSubheading
+      {Software Engineering Team Lead}{April 2024 -- Present}
+      {Bloomberg LP (Developer Experience Department)}{New York City, NY, USA}
+      \resumeItemListStart
+        \resumeItem{Drive architecture and technical direction for static analysis across Bloomberg's codebase as team lead of STAAR (Static Analysis and Automated Refactoring); leading 6 engineers plus 2 contractors.}
+        \resumeItem{Operate and scale the STAAR pipeline, a distributed static analysis system running over 2.5 million jobs per week across tens of thousands of independent repositories, exposing issues via Bloomberg's initiative reporting dashboard.}
+        \resumeItem{Integrate static analysis into Bloomberg's meta-build system (berg) and CI platform (Devise), creating a unified interface for running and getting static analysis results across all supported languages.}
+        \resumeItem{Delivered coverage for all 6 of Bloomberg's tier one and tier two languages to satisfy EU DORA and SSDF regulatory requirements.}
+        \resumeItem{Partnered with the CISO to detect over 500 vulnerability/language permutations, including SQL injection and memory safety issues.}
+      \resumeItemListEnd
+
+      \resumeSubheading
+      {Software Engineering Team Lead}{May 2022 -- March 2024}
+      {Bloomberg LP (Trading Solutions Department)}{New York City, NY, USA}
+      \resumeItemListStart
+        \resumeItem{Owned technical direction and delivery for the Options and Loans team within AIM, Bloomberg's buy-side OMS; leading 5 engineers.}
+        \resumeItem{Co-owned the C++ ``Order Trade Entry'' ticketing engine processing up to hundreds of millions of transactions daily.}
+        \resumeItem{Led delivery of Bond Forwards and Loans support in the C++ ticketing engine, a gating requirement for institutional clients to onboard onto AIM; drove design and execution while implementing core order/trade persistence logic hands-on.}
+        \resumeItem{Partnered with AIM product owners to scope and prioritize the Options and Loans product roadmap, converting client requirements into technical designs and delivery plans.}
+      \resumeItemListEnd
+
+      \resumeSubheading
+      {Senior Software Engineer}{October 2017 -- May 2022}
+      {Bloomberg LP (Trading Solutions Department)}{New York City, NY, USA}
+      \resumeItemListStart
+        \resumeItem{Tech lead for the cross-department integration between BSKT (Bloomberg's basket-trading product) and AIM, eliminating manual re-entry and bringing BSKT clients onto AIM.}
+        \resumeItem{Implemented a RabbitMQ-based queueing system for AIM's C++ ticketing engine, allowing durable messaging with high scaling.}
+        \resumeItem{Designed and implemented a Redis-backed distributed caching layer for the ``Order Defaults'' settings service, reducing settings page load time by a factor of 5 and latency for specific cached request types by a factor of 50, with a cache hit rate of over 99\%.}
+        \resumeItem{Migrated 21 core services and libraries to Linux as part of Bloomberg's company-wide migration off legacy UNIX OSes (Solaris and AIX).}
+        \resumeItem{Led the migration of JavaScript UI components to a new WebKit-based rendering engine as part of a company-wide initiative.}
+        \resumeItem{Selected as a technical leader of the Trading Solutions refactoring working group, helping developers migrate their legacy C++ to Linux.}
+      \resumeItemListEnd
+
+      \resumeSubheading
+      {Cloud Integration Software Engineer}{April 2017 -- August 2017}
+      {Solace Corporation}{Kanata, ON, Canada}
+      \resumeItemListStart
+        \resumeItem{Implemented LDAP authentication in Java for the Solace Pivotal Cloud Foundry (PCF) tile.}
+        \resumeItem{Automated test environment provisioning with AWS CloudFormation, standing up pre-configured EC2 instances on demand.}
+      \resumeItemListEnd
+
+        \resumeSubheading
+      {Software Developer}{June 2015 -- March 2017}
+      {Solace Corporation}{Kanata, ON, Canada}
+      \resumeItemListStart
+        \resumeItem{Maintained and extended the C++ configuration management software for the Solace Messaging Appliance.}
+        \resumeItem{Designed and implemented a RESTful configuration management API in Python.}
+        \resumeItem{Redesigned the auto-generated Python command handling infrastructure around a polymorphic approach.}
+      \resumeItemListEnd
+      
+% -----------Multiple Positions Heading-----------
+%    \resumeSubSubheading
+%     {Software Engineer I}{Oct 2014 - Sep 2016}
+%     \resumeItemListStart
+%        \resumeItem{Apache Beam}
+%          {Apache Beam is a unified model for defining both batch and streaming data-parallel processing pipelines}
+%     \resumeItemListEnd
+%    \resumeSubHeadingListEnd
+%-------------------------------------------
+
+  \resumeSubHeadingListEnd
+
+%
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {University of Toronto}{September 2010 -- June 2015}
+      {Bachelor of Applied Science, Electrical and Computer Engineering}{Toronto, ON, Canada}
+      \resumeItemListStart
+        \resumeItem{16-month co-op between 3rd and 4th year at Algorithmics (an IBM company).}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+
+%-------------------------------------------
+\end{document}
