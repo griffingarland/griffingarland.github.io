@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tetris — Griffin Garland</title>
+<meta name="description" content="Tetris, written in plain JavaScript with no dependencies. Playable with a keyboard or on a phone.">
+<meta name="author" content="Griffin Garland">
+<link rel="canonical" href="https://griffingarland.com/games/tetris.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Griffin Garland">
+<meta property="og:title" content="Tetris — Griffin Garland">
+<meta property="og:description" content="Tetris, written in plain JavaScript with no dependencies.">
+<meta property="og:url" content="https://griffingarland.com/games/tetris.html">
+<meta property="og:image" content="https://griffingarland.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230d1117'/><text x='16' y='23' font-family='monospace' font-size='19' font-weight='700' fill='%2357d16c' text-anchor='middle'>&gt;_</text></svg>">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="games.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="crt" aria-hidden="true"></div>
+
+<div class="window">
+  <div class="titlebar">
+    <span class="dots" aria-hidden="true"><i class="r"></i><i class="y"></i><i class="g"></i></span>
+    <span class="titletext">griffin@portfolio: ~/games — zsh</span>
+  </div>
+
+  <main class="screen" id="main">
+    <p class="line"><span class="prompt">$</span> ./tetris</p>
+
+    <div class="game">
+      <div class="stage">
+        <div id="board" role="img" aria-label="Tetris playing field"></div>
+        <div id="overlay" hidden></div>
+      </div>
+
+      <div class="hud">
+        <div><h2>score</h2><p class="stat" id="score" aria-live="polite">0</p></div>
+        <div><h2>best</h2><p class="stat" id="best">0</p></div>
+        <div><h2>lines</h2><p class="stat" id="lines">0</p></div>
+        <div><h2>level</h2><p class="stat" id="level">1</p></div>
+        <div><h2>next</h2><div id="next" aria-hidden="true"></div></div>
+      </div>
+    </div>
+
+    <div class="pad">
+      <button data-act="left"  aria-label="Move left">&#9664;</button>
+      <button data-act="rot"   aria-label="Rotate">&#8635;</button>
+      <button data-act="right" aria-label="Move right">&#9654;</button>
+      <button data-act="drop"  aria-label="Hard drop">&#8615;</button>
+    </div>
+
+    <p class="keys"><button id="restart" class="btn btn-sm">restart</button></p>
+
+    <p class="keys">
+      keyboard: &larr; &rarr; move &middot; &uarr; rotate &middot; &darr; soft drop
+      &middot; space hard drop &middot; p pause &middot; r restart
+    </p>
+
+    <p class="line last"><span class="prompt">$</span> <span class="cursor" aria-hidden="true"></span></p>
+  </main>
+</div>
+
+<footer class="footbar">
+  <p class="line"><span class="prompt">$</span> ls ~/links</p>
+  <ul class="contact">
+    <li><a href="./">games</a></li>
+    <li><a href="../">home</a></li>
+    <li><a href="../resume.html">resume</a></li>
+    <li><a href="https://www.linkedin.com/in/griffingarland/" rel="me noopener">linkedin</a></li>
+    <li><a href="https://github.com/griffingarland" rel="me noopener">github</a></li>
+  </ul>
+</footer>
+
+<script src="tetris.js"></script>
+</body>
+</html>

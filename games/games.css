@@ -1,0 +1,106 @@
+/* Styles for the game pages. Loaded only under /games/ so the resume
+   pages stay lean. Palette tokens come from ../styles.css. */
+
+:root {
+  --i:#56b6c2; --o:#e0af68; --t:#c678dd;
+  --s:#57d16c; --z:#ff5f57; --j:#61afef; --l:#ff9e64;
+  --cell: clamp(15px, 6.4vw, 28px);
+}
+
+.game {
+  display: flex; flex-wrap: wrap; gap: clamp(1rem, 4vw, 2.5rem);
+  align-items: flex-start; justify-content: center;
+}
+
+.stage { position: relative; }
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(10, var(--cell));
+  grid-template-rows: repeat(20, var(--cell));
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  padding: 1px;
+}
+
+.cell { background: #0c1211; border-radius: 2px; }
+.cell.f { box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); }
+.cell.ghost { background: #0c1211; box-shadow: inset 0 0 0 1px rgba(198,212,204,.22); }
+.cell.i{background:var(--i)} .cell.o{background:var(--o)} .cell.t{background:var(--t)}
+.cell.s{background:var(--s)} .cell.z{background:var(--z)} .cell.j{background:var(--j)}
+.cell.l{background:var(--l)}
+
+/* side panel ------------------------------------------------------------ */
+.hud { display: flex; flex-direction: column; gap: 1.25rem; min-width: 9rem; }
+.hud h2 { font-size: .8em; color: var(--dim); font-weight: 400; margin: 0 0 .35rem; }
+.stat { color: var(--fg-strong); font-size: 1.5em; line-height: 1; }
+
+#next {
+  display: grid;
+  grid-template-columns: repeat(4, calc(var(--cell) * .72));
+  grid-template-rows: repeat(4, calc(var(--cell) * .72));
+  gap: 1px;
+}
+
+/* overlay --------------------------------------------------------------- */
+/* An id selector outranks the UA `[hidden]{display:none}` rule, so the
+   hidden state has to be restated explicitly or the overlay never hides. */
+#overlay[hidden] { display: none; }
+#overlay {
+  position: absolute; inset: 0; display: grid; place-content: center;
+  gap: .6rem; text-align: center;
+  background: rgba(10,14,13,.88); backdrop-filter: blur(2px);
+}
+#overlay p { color: var(--accent); font-size: 1.5em; margin: 0; }
+#overlay .sub { color: var(--dim); font-size: .9em; }
+
+.btn, .pad button {
+  font: inherit; color: var(--accent); background: var(--bar);
+  border: 1px solid var(--rule); border-radius: 6px;
+  padding: .5rem 1rem; cursor: pointer;
+}
+.btn:hover, .pad button:hover { background: #1d2723; color: var(--fg-strong); }
+.btn:focus-visible, .pad button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* touch controls -------------------------------------------------------- */
+.pad {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: .5rem; margin-top: 1.1rem; max-width: 24rem;
+  margin-inline: auto; width: 100%;
+}
+.pad button {
+  padding: .85rem 0; font-size: 1.25rem; line-height: 1;
+  touch-action: manipulation;   /* no double-tap zoom while playing */
+  user-select: none;
+}
+.keys { color: var(--dim); font-size: .82em; margin-top: 1rem; text-align: center; }
+
+@media (max-width: 34rem) {
+  .game { gap: 1rem; }
+  .hud {
+    flex-direction: row; min-width: 0; width: 100%;
+    justify-content: space-between; align-items: flex-start; gap: .75rem;
+  }
+  .stat { font-size: 1.15em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #overlay { backdrop-filter: none; }
+}
+
+/* directory-style listing (used by games/index.html) */
+.listing { list-style: none; padding: 0; margin: 0; max-width: var(--measure); }
+.listing li {
+  display: grid; grid-template-columns: 12ch 1fr;
+  align-items: baseline; gap: 0 1rem; margin: .3rem 0;
+}
+.listing a { justify-self: start; }
+.note { color: var(--dim); font-size: .88em; }
+@media (max-width: 34rem) {
+  .listing li { grid-template-columns: 1fr; gap: 0; margin: .55rem 0; }
+}
+
+/* restart confirmation */
+.choices { display: flex; gap: .6rem; justify-content: center; }
+.btn-sm { padding: .35rem .8rem; font-size: .85em; }
