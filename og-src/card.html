@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!-- Source for og.png. Render with:
+     firefox --headless --screenshot og.png --window-size=1200,630 file://.../card.html
+     See DEVELOPMENT.md. Keep in sync with styles.css if the palette changes. -->
+<html lang="en">
+<head><meta charset="utf-8">
+<style>
+  :root{
+    --bg:#0a0e0d; --panel:#0f1513; --bar:#161d1a;
+    --fg:#c6d4cc; --fg-strong:#e8f2ec; --dim:#6d8177;
+    --accent:#57d16c; --amber:#e0af68; --rule:#1f2b26;
+    --mono: ui-monospace,"SF Mono",SFMono-Regular,Menlo,Monaco,Consolas,"DejaVu Sans Mono",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:1200px;height:630px;overflow:hidden}
+  body{
+    background:var(--bg);
+    background-image:radial-gradient(120% 80% at 50% 0%, #10201a 0%, var(--bg) 60%);
+    font-family:var(--mono); display:flex; align-items:center; justify-content:center;
+  }
+  .window{
+    width:1030px; background:var(--panel);
+    border:1px solid var(--rule); border-radius:14px; overflow:hidden;
+    box-shadow:0 0 0 1px rgba(87,209,108,.05), 0 40px 90px -30px rgba(0,0,0,.95);
+  }
+  .titlebar{
+    display:flex; align-items:center; gap:11px;
+    padding:15px 22px; background:var(--bar);
+    border-bottom:1px solid var(--rule); position:relative;
+  }
+  .dots{display:flex;gap:9px}
+  .dots i{width:15px;height:15px;border-radius:50%;display:block}
+  .r{background:#ff5f57}.y{background:#febc2e}.g{background:#28c840}
+  .titletext{
+    position:absolute;left:0;right:0;text-align:center;
+    color:var(--dim);font-size:17px;letter-spacing:.01em;
+  }
+  .screen{padding:52px 60px 58px}
+  .line{color:var(--accent);font-size:26px;text-shadow:0 0 14px rgba(87,209,108,.35)}
+  .prompt{color:var(--amber);margin-right:14px}
+  h1{
+    color:var(--fg-strong); font-size:88px; line-height:1.05;
+    letter-spacing:-.02em; margin:16px 0 10px;
+    text-shadow:0 0 30px rgba(200,255,220,.15);
+  }
+  .role{color:var(--accent);font-size:32px;margin-bottom:34px}
+  .meta{color:var(--dim);font-size:24px;display:flex;gap:20px;align-items:center}
+  .sep{color:var(--rule)}
+  .cursor{
+    display:inline-block;width:15px;height:30px;background:var(--accent);
+    vertical-align:-4px;margin-left:6px;box-shadow:0 0 12px rgba(87,209,108,.55);
+  }
+</style></head>
+<body>
+  <div class="window">
+    <div class="titlebar">
+      <span class="dots"><i class="r"></i><i class="y"></i><i class="g"></i></span>
+      <span class="titletext">griffin@portfolio: ~ — zsh</span>
+    </div>
+    <div class="screen">
+      <p class="line"><span class="prompt">$</span> whoami</p>
+      <h1>Griffin Garland</h1>
+      <p class="role">Software Engineer<span class="cursor"></span></p>
+      <p class="meta">
+        <span>New York City, NY</span><span class="sep">·</span>
+        <span>griffingarland.com</span>
+      </p>
+    </div>
+  </div>
+</body>
+</html>

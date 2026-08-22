@@ -61,6 +61,23 @@ FF="/Applications/Firefox.app/Contents/MacOS/firefox"
 `Cmd-P` in a real browser previews the print stylesheet, which strips the
 terminal styling down to a clean black-on-white resume.
 
+## Rebuild the link-preview card
+
+`og.png` is the image shown when the site is shared in Slack, iMessage,
+LinkedIn, etc. It is generated from `og-src/card.html` — edit that, then
+re-render at exactly 1200x630:
+
+```bash
+FF="/Applications/Firefox.app/Contents/MacOS/firefox"
+"$FF" --headless --screenshot "$PWD/og.png" --window-size=1200,630 \
+  "file://$PWD/og-src/card.html"
+```
+
+Keep the card's palette in sync with `styles.css` if the colours change.
+Unfurlers cache aggressively: after updating the image, add a query string
+(`?v=2`) to force a fresh fetch when testing, and use LinkedIn's Post
+Inspector to refresh its copy.
+
 ## Deploy
 
 GitHub Pages serves griffingarland.com from `main`:
