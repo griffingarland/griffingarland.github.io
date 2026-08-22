@@ -192,7 +192,19 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 }
 strong { color: var(--fg-strong); font-weight: 700; }
 
-footer { margin-top: 3rem; }
+/* Footer is its own panel below the terminal window, with the page
+   background showing through the gap between them. */
+.footbar {
+  max-width: 60rem;
+  margin: 1.15rem auto 0;
+  padding: 1.1rem clamp(1.25rem, 4vw, 2.75rem) 1.35rem;
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px rgba(87,209,108,.05),
+              0 24px 60px -20px rgba(0,0,0,.9);
+}
+.footbar .line { margin: 0 0 .6rem; }
 .last { margin-bottom: 0; }
 
 /* ---- motion / contrast preferences ------------------------------------- */
@@ -209,6 +221,10 @@ footer { margin-top: 3rem; }
 @media (max-width: 34rem) {
   body { padding: 0; background-image: none; }
   .window { border: 0; border-radius: 0; box-shadow: none; }
+  .footbar {
+    border-left: 0; border-right: 0; border-bottom: 0;
+    border-radius: 0; box-shadow: none; margin-top: .75rem;
+  }
   .titletext { display: none; }
   .meta li + li::before, .contact li + li::before { content: none; margin: 0; }
   .meta, .contact { flex-direction: column; gap: .3rem; }
@@ -219,6 +235,11 @@ footer { margin-top: 3rem; }
   .crt, .titlebar, .cursor, .skip { display: none !important; }
   body { background: #fff; color: #000; padding: 0; font-size: 10.5pt; }
   .window { border: 0; box-shadow: none; max-width: none; background: #fff; }
+  .footbar {
+    background: #fff; border: 0; border-top: 1px solid #ccc;
+    border-radius: 0; box-shadow: none; max-width: none;
+    margin: 1.2rem 0 0; padding: .6rem 0 0;
+  }
   .screen { padding: 0; }
   .line { color: #000; text-shadow: none; margin: 1.1rem 0 .4rem; font-weight: 700; }
   .prompt { color: #666; }

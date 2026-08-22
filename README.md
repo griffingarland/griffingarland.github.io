@@ -1,9 +1,8 @@
-# Personal website
+# griffingarland.com
 
-This is my personal website. Got Claude to help me build most of it, and filled it out myself.
+My personal site — a terminal-themed landing page and resume.
 
-## Hosting and DNS
+Live at <https://griffingarland.com>.
 
-Hosted via Github pages (technically hosted at griffingarland.github.io).
-
-I use CloudFlare with a CNAME DNS record to alias griffingarland.com to griffingarland.github.io. 
+Plain HTML and CSS, no framework and no build step.
+See [DEVELOPMENT.md](DEVELOPMENT.md) to run it locally.
