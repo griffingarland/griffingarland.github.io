@@ -250,15 +250,3 @@ strong { color: var(--fg-strong); font-weight: 700; }
   .when, .dim, .meta { color: #444; }
 }
 
-/* ---- directory listing on the landing page ----------------------------- */
-.listing { list-style: none; padding: 0; margin: 0; max-width: var(--measure); }
-.listing li {
-  display: grid; grid-template-columns: 12ch 1fr;
-  align-items: baseline; gap: 0 1rem; margin: .3rem 0;
-}
-/* shrink the anchor to its text so the underline doesn't run past it */
-.listing a { justify-self: start; }
-@media (max-width: 34rem) {
-  .listing li { grid-template-columns: 1fr; gap: 0; margin: .55rem 0; }
-}
-.note { color: var(--dim); font-size: .88em; }
