@@ -91,11 +91,14 @@
 .ctrls { display: flex; gap: .6rem; justify-content: center; margin-top: 1rem; }
 
 @media (max-width: 34rem) {
-  /* Size cells off the *visible* viewport height too, not just width, so the
-     board plus controls fit above the browser chrome. dvh tracks the toolbar
-     collapsing on iOS; the vh line is the fallback. */
+  /* Size cells off the visible viewport height as well as width, so the board
+     plus controls fit without scrolling.
+     svh, not dvh: dvh tracks iOS collapsing its toolbar mid-scroll, which
+     resizes the board under the player's thumb and rewraps the overlay. svh
+     is the toolbar-visible measurement and never changes, so the layout is
+     stable and still fits in the worst case. vh is the older fallback. */
   :root { --cell: max(11px, min(7.6vw, (100vh  - 340px) / 20)); }
-  :root { --cell: max(11px, min(7.6vw, (100dvh - 340px) / 20)); }
+  :root { --cell: max(11px, min(7.6vw, (100svh - 340px) / 20)); }
 
   .screen { padding: 1rem .9rem calc(1.1rem + env(safe-area-inset-bottom)); }
   .keys { display: none; }          /* no keyboard to hint at */
