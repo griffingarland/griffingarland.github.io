@@ -226,9 +226,9 @@
 
   function showStart() {
     waiting = true;
-    // Nothing is in play yet, so don't advertise the first piece. The label
-    // stays so the HUD doesn't jump when the game starts.
+    // Nothing is in play yet, so hide the whole next slot, label included.
     for (const c of nextCells) c.className = 'cell';
+    $('nextbox').classList.add('off');
     overlay.innerHTML =
       '<p>tetris</p><p class="sub">come on, you know how to play</p>' +
       '<div class="choices"><button id="go" class="btn">start</button></div>' +
@@ -240,9 +240,11 @@
 
   function start() {
     waiting = false;
+    $('nextbox').classList.remove('off');
     overlay.hidden = true;
     overlay.innerHTML = '';
     last = undefined;
+    draw();      // paint immediately; don't show an empty slot until the first frame
   }
 
   function reset(autostart) {

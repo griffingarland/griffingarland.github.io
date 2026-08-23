@@ -49,6 +49,10 @@
 .hud h2 { font-size: .8em; color: var(--dim); font-weight: 400; margin: 0 0 .35rem; }
 .stat { color: var(--fg-strong); font-size: 1.5em; line-height: 1; }
 
+/* visibility, not display: the slot keeps its space so the HUD doesn't
+   reflow when the game starts */
+#nextbox.off { visibility: hidden; }
+
 #next {
   display: grid;
   grid-template-columns: repeat(4, calc(var(--cell) * .72));
