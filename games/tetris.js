@@ -491,6 +491,7 @@
   $('pause').addEventListener('click', () => setPaused(!paused));
 
   addEventListener('blur', () => setPaused(true));
+  document.addEventListener('appminimize', () => setPaused(true));
   document.addEventListener('visibilitychange', () => { if (document.hidden) setPaused(true); });
 
   reset(false);

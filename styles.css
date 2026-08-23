@@ -82,7 +82,12 @@ body {
   position: relative;
 }
 .dots { display: flex; gap: .45rem; }
-.dots i { width: .7rem; height: .7rem; border-radius: 50%; display: block; }
+.dots i, .dots button {
+  width: .7rem; height: .7rem; border-radius: 50%; display: block;
+  padding: 0; border: 0; -webkit-appearance: none; appearance: none;
+}
+.dots button { cursor: pointer; }
+.dots button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .dots .r { background: #ff5f57; }
 .dots .y { background: #febc2e; }
 .dots .g { background: #28c840; }
@@ -253,3 +258,87 @@ strong { color: var(--fg-strong); font-weight: 700; }
   .when, .dim, .meta { color: #444; }
 }
 
+
+
+/* ---- minimise to the dock ---------------------------------------------- */
+/* The panels stay in the layout and are transformed, so nothing reflows;
+   `inert` is what actually removes them from tab order and the a11y tree. */
+.window, .footbar {
+  transition: transform .34s cubic-bezier(.35, 0, .2, 1), opacity .28s ease-out;
+  transform-origin: 50% 100%;
+  will-change: transform;
+}
+body.minimized { overflow: hidden; }
+body.minimized .window,
+body.minimized .footbar {
+  transform: scale(.05) translateY(45vh);
+  opacity: 0;
+}
+
+/* The dock: one live app (G², which restores the window) plus set dressing. */
+#dockbar {
+  position: fixed; left: 50%; bottom: 1.25rem; z-index: 6;
+  display: flex; align-items: flex-end; gap: .55rem;
+  padding: .5rem .6rem;
+  background: rgba(22, 29, 26, .72);
+  border: 1px solid var(--rule);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 18px 40px -18px rgba(0, 0, 0, .95);
+  transform: translateX(-50%) scale(.35);
+  opacity: 0; pointer-events: none;
+  transition: transform .34s cubic-bezier(.35, 0, .2, 1), opacity .2s ease-out;
+}
+body.minimized #dockbar {
+  transform: translateX(-50%) scale(1);
+  opacity: 1; pointer-events: auto;
+}
+
+#dock, .dock-app {
+  display: grid; justify-items: center;
+  padding: 0; background: none; border: 0;
+}
+#dock { cursor: pointer; }
+#dock:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 12px; }
+
+/* Dressed as app tiles: a hairline edge and a cast shadow to lift them off
+   the bar, plus the running-indicator dot a dock puts under a live app. */
+#dock img, .dock-app img {
+  display: block;
+  border-radius: 11px;
+  box-shadow: 0 0 0 1px rgba(198, 212, 204, .20),
+              inset 0 1px 0 rgba(255, 255, 255, .07),
+              0 12px 26px -10px rgba(0, 0, 0, .95);
+  transition: transform .16s ease-out, box-shadow .16s ease-out;
+}
+/* Only the live app gets the indicator; the others reserve the space so the
+   tiles still line up. */
+#dock::after, .dock-app::after {
+  content: "";
+  width: 4px; height: 4px; border-radius: 50%;
+  margin-top: .4rem;
+  background: var(--accent);
+  box-shadow: 0 0 7px rgba(87, 209, 108, .85);
+}
+.dock-app::after { background: none; box-shadow: none; }
+
+/* Inert by design: no pointer, no lift, nothing happens. */
+.dock-app { cursor: default; }
+.dock-app img { opacity: .72; }
+
+#dock:hover img {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 0 0 1px rgba(198, 212, 204, .32),
+              inset 0 1px 0 rgba(255, 255, 255, .09),
+              0 16px 30px -10px rgba(0, 0, 0, .95);
+}
+
+.dock-sep {
+  align-self: stretch; width: 1px; margin: .15rem .15rem 1rem;
+  background: var(--rule);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .window, .footbar, #dockbar, #dock img { transition: none; }
+  #dock:hover img { transform: none; }
+}
