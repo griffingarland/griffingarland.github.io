@@ -342,3 +342,136 @@ body.minimized #dockbar {
   .window, .footbar, #dockbar, #dock img { transition: none; }
   #dock:hover img { transform: none; }
 }
+
+/* ---- close, and the assistant who won't let you ------------------------ */
+/* Same trick as the minimise: the panels never leave the layout, they just
+   shrink away and go inert. Origin is the middle here (a close collapses in
+   place) rather than the bottom edge (a minimise falls to the dock). */
+body.closed { overflow: hidden; }
+body.closed .window,
+body.closed .footbar {
+  transform-origin: 50% 50%;
+  transform: scale(.92);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Full-viewport centring: works out to bubble-beside-Clippy on a laptop and
+   Clippy-above-bubble on a phone, with no fixed pixel positions either way. */
+#assistant {
+  position: fixed; inset: 0; z-index: 7;
+  display: grid; place-items: center;
+  padding: clamp(1rem, 5vw, 3rem);
+  opacity: 0;
+  /* It covers the whole viewport, so it must not eat clicks until it's up. */
+  pointer-events: none;
+  transition: opacity .3s ease-out;
+}
+/* Setting display above overrides the browser's own [hidden] { display: none }
+   — author styles beat UA styles — so hidden has to be re-stated here. */
+#assistant[hidden] { display: none; }
+#assistant.show { opacity: 1; pointer-events: auto; }
+
+.assistant-inner {
+  display: flex; align-items: center; gap: clamp(.75rem, 2vw, 1.5rem);
+  max-width: 44rem;
+  transform: translateY(14px) scale(.97);
+  transition: transform .34s cubic-bezier(.2, .9, .3, 1.2);
+}
+#assistant.show .assistant-inner { transform: none; }
+
+.bubble {
+  position: relative;
+  flex: 1 1 auto;
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 1rem clamp(1rem, 3vw, 1.5rem) 1.15rem;
+  box-shadow: 0 24px 60px -20px rgba(0,0,0,.9);
+}
+.bubble-who {
+  margin: 0 0 .5rem;
+  color: var(--accent);
+  font-size: .82em;
+  text-shadow: 0 0 12px rgba(87,209,108,.35);
+}
+#assistant-text {
+  margin: 0 0 1.1rem;
+  color: var(--fg-strong);
+  max-width: 34ch;
+}
+
+#assistant-back {
+  font: inherit; font-size: .92em;
+  color: var(--accent);
+  background: rgba(87,209,108,.08);
+  border: 1px solid rgba(87,209,108,.45);
+  border-radius: 5px;
+  padding: .5rem 1rem;
+  cursor: pointer;
+  transition: background .15s ease-out, color .15s ease-out;
+}
+#assistant-back:hover { background: rgba(87,209,108,.18); color: var(--fg-strong); }
+#assistant-back:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* Speech-bubble tail. Two triangles: the outer one is the 1px border colour,
+   the inner one sits 2px in and paints the panel fill over it. */
+.bubble::before, .bubble::after {
+  content: ""; position: absolute;
+  width: 0; height: 0;
+  border: 11px solid transparent;
+  border-right-width: 0;
+}
+.bubble::before { top: 1.9rem; right: -11px; border-left-color: var(--rule); }
+.bubble::after  { top: 1.9rem; right: -9px;  border-left-color: var(--panel); }
+
+.clippy { flex: 0 0 auto; color: #b6c7bf; }
+.clip {
+  width: clamp(74px, 16vw, 108px); height: auto;
+  display: block;
+  filter: drop-shadow(0 0 14px rgba(87,209,108,.18));
+  animation: clip-bob 3.6s ease-in-out infinite;
+}
+.clip-brows {
+  stroke: currentColor; stroke-width: 5; stroke-linecap: round; fill: none;
+}
+.clip-white { fill: var(--fg-strong); }
+.clip-pupil { fill: #0a0e0d; }
+/* transform-box keeps the scale centred on each eye rather than on the SVG
+   origin, so a blink squashes the eye in place. */
+.clip-eye {
+  transform-box: fill-box; transform-origin: center;
+  animation: clip-blink 5.4s ease-in-out infinite;
+}
+
+@keyframes clip-bob {
+  50% { transform: translateY(-7px) rotate(-2deg); }
+}
+@keyframes clip-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95%           { transform: scaleY(.12); }
+}
+
+/* Phone: stack it — Clippy on top (column-reverse), bubble under him, tail
+   flipped to point up at him. */
+@media (max-width: 40rem) {
+  .assistant-inner { flex-direction: column-reverse; gap: .35rem; }
+  #assistant-text { max-width: none; }
+  .bubble { width: 100%; }
+  .bubble::before, .bubble::after {
+    border: 11px solid transparent;
+    border-top-width: 0;
+    top: auto; right: auto;
+    left: 50%; margin-left: -11px;
+  }
+  .bubble::before { bottom: 100%; border-bottom-color: var(--rule); }
+  .bubble::after  { bottom: calc(100% - 2px); border-bottom-color: var(--panel); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #assistant, .assistant-inner { transition: none; }
+  .assistant-inner { transform: none; }
+  .clip, .clip-eye { animation: none; }
+}
+
+@media print { #assistant { display: none !important; } }

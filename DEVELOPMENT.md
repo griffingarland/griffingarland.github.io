@@ -6,6 +6,8 @@ How to preview, rebuild, and deploy this site.
 index.html      landing page (intro prose + links)
 resume.html     experience, skills, education
 styles.css      all styling, shared by both pages
+minimize.js     yellow traffic light: collapse the panels into a dock
+close.js        red traffic light: close the panels, then Clippy objects
 resume.pdf      built from resume-src/ (see below)
 robots.txt      indexable, except the PDF
 CNAME           custom domain for GitHub Pages
