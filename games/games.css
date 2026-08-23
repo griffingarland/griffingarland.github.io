@@ -130,6 +130,8 @@
   align-items: baseline; gap: 0 1rem; margin: .3rem 0;
 }
 .listing a { justify-self: start; }
+/* inert entry: plain text, deliberately not a link */
+.listing .noop { justify-self: start; color: var(--dim); }
 .note { color: var(--dim); font-size: .88em; }
 @media (max-width: 34rem) {
   .listing li { grid-template-columns: 1fr; gap: 0; margin: .55rem 0; }

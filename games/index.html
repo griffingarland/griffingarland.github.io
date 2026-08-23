@@ -31,9 +31,12 @@
   </div>
 
   <main class="screen" id="main">
-    <p class="line"><span class="prompt">$</span> ls ~/games</p>
+    <p class="line"><span class="prompt">$</span> ls -a ~/games</p>
     <h1 class="sr-only">Games</h1>
     <ul class="listing">
+      <!-- Not a link, deliberately. A dotfile only shows under `ls -a`,
+           which is the joke: nothing on the site points at this page. -->
+      <li><span class="noop">.hidden</span><span class="note">you weren&rsquo;t supposed to find this page</span></li>
       <li><a href="tetris.html">tetris</a><span class="note">The Soviets really cooked with this one.</span></li>
     </ul>
     <p class="line last"><span class="prompt">$</span> <span class="cursor" aria-hidden="true"></span></p>
