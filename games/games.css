@@ -27,10 +27,18 @@
 .cell { background: #0c1211; border-radius: 2px; }
 .cell.f { box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); }
 .cell.ghost { background: #0c1211; box-shadow: inset 0 0 0 1px rgba(198,212,204,.22); }
-/* completed row, lit for FLASH_MS before it collapses */
+/* completed row: flash white, then collapse. Motion is what makes the
+   clear register — a static colour change at this duration reads as
+   nothing happening. Keep in sync with FLASH_MS in tetris.js. */
+@keyframes clearflash {
+  0%   { background: #ffffff; transform: scaleY(1);   opacity: 1; }
+  35%  { background: #ffffff; transform: scaleY(1);   opacity: 1; }
+  100% { background: var(--fg-strong); transform: scaleY(.08); opacity: .2; }
+}
 .cell.clearing {
-  background: var(--fg-strong);
-  box-shadow: 0 0 14px rgba(232,242,236,.55);
+  background: #ffffff;
+  box-shadow: 0 0 18px rgba(255,255,255,.65);
+  animation: clearflash 280ms ease-out forwards;
 }
 .cell.i{background:var(--i)} .cell.o{background:var(--o)} .cell.t{background:var(--t)}
 .cell.s{background:var(--s)} .cell.z{background:var(--z)} .cell.j{background:var(--j)}
@@ -80,16 +88,18 @@
   user-select: none;
 }
 .keys { color: var(--dim); font-size: .82em; margin-top: 1rem; text-align: center; }
+.ctrls { display: flex; gap: .6rem; justify-content: center; margin-top: 1rem; }
 
 @media (max-width: 34rem) {
   /* Size cells off the *visible* viewport height too, not just width, so the
      board plus controls fit above the browser chrome. dvh tracks the toolbar
      collapsing on iOS; the vh line is the fallback. */
-  :root { --cell: max(11px, min(7.6vw, (100vh  - 292px) / 20)); }
-  :root { --cell: max(11px, min(7.6vw, (100dvh - 292px) / 20)); }
+  :root { --cell: max(11px, min(7.6vw, (100vh  - 340px) / 20)); }
+  :root { --cell: max(11px, min(7.6vw, (100dvh - 340px) / 20)); }
 
   .screen { padding: 1rem .9rem calc(1.1rem + env(safe-area-inset-bottom)); }
   .keys { display: none; }          /* no keyboard to hint at */
+  .ctrls { margin-top: .7rem; }     /* pause/restart must stay reachable */
   .pad { margin-top: .75rem; }
   .pad button { padding: .7rem 0; }
   .game { gap: 1rem; }
@@ -102,8 +112,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   #overlay { backdrop-filter: none; }
-  /* keep the cue, drop the glow */
-  .cell.clearing { box-shadow: none; background: var(--dim); }
+  /* keep the cue, drop the motion and the glare */
+  .cell.clearing { animation: none; box-shadow: none; background: var(--dim); }
 }
 
 /* directory-style listing (used by games/index.html) */

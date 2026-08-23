@@ -44,7 +44,7 @@
 
   let grid, cur, nextPiece, score, lines, level, dropMs, acc, last;
   let dead, paused, confirming, waiting, flashing, flashTimer, bag = [];
-  const FLASH_MS = 160;
+  const FLASH_MS = 280;   // matches the clearflash keyframes in games.css
 
   // 7-bag randomiser: every piece appears once per seven, which is what
   // makes the game feel fair rather than random.
@@ -186,8 +186,18 @@
   function setPaused(p) {
     if (dead || confirming || waiting) return;
     paused = p;
-    overlay.innerHTML = '<p>paused</p><p class="sub">press p to resume</p>';
-    overlay.hidden = !p;
+    if (!p) {
+      overlay.hidden = true;
+      overlay.innerHTML = '';
+      last = undefined;        // don't bank the paused time as one big tick
+      return;
+    }
+    overlay.innerHTML =
+      '<p>paused</p><div class="choices">' +
+      '<button id="resume" class="btn">resume</button></div>' +
+      '<p class="sub">or press p</p>';
+    overlay.hidden = false;
+    $('resume').addEventListener('click', () => setPaused(false));
   }
 
   // Restarting throws away a game in progress, so it asks first — unless
@@ -319,6 +329,7 @@
   });
 
   $('restart').addEventListener('click', askRestart);
+  $('pause').addEventListener('click', () => setPaused(!paused));
 
   // Don't run the clock in a background tab.
   addEventListener('blur', () => setPaused(true));
