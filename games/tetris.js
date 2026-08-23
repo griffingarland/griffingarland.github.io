@@ -226,6 +226,9 @@
 
   function showStart() {
     waiting = true;
+    // Nothing is in play yet, so don't advertise the first piece. The label
+    // stays so the HUD doesn't jump when the game starts.
+    for (const c of nextCells) c.className = 'cell';
     overlay.innerHTML =
       '<p>tetris</p><p class="sub">come on, you know how to play</p>' +
       '<div class="choices"><button id="go" class="btn">start</button></div>' +
