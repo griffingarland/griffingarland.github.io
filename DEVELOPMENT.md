@@ -78,6 +78,32 @@ Unfurlers cache aggressively: after updating the image, add a query string
 (`?v=2`) to force a fresh fetch when testing, and use LinkedIn's Post
 Inspector to refresh its copy.
 
+## Regenerate the favicon
+
+`favicon.svg` is the source of truth; `favicon.ico` and
+`apple-touch-icon.png` are derived from it. After editing the SVG:
+
+```bash
+for s in 16 32 48; do rsvg-convert -w $s -h $s favicon.svg -o /tmp/fav$s.png; done
+rsvg-convert -w 180 -h 180 favicon.svg -o apple-touch-icon.png
+python3 - <<'EOF'
+import struct, pathlib
+imgs = [(s, pathlib.Path(f"/tmp/fav{s}.png").read_bytes()) for s in (16, 32, 48)]
+out = struct.pack("<HHH", 0, 1, len(imgs))
+off = 6 + 16 * len(imgs)
+entries = blobs = b""
+for s, d in imgs:
+    entries += struct.pack("<BBBBHHII", s, s, 0, 0, 1, 32, len(d), off)
+    blobs += d; off += len(d)
+pathlib.Path("favicon.ico").write_bytes(out + entries + blobs)
+EOF
+```
+
+Needs `rsvg-convert` (`brew install librsvg`). Browsers cache favicons
+aggressively and ignore a hard refresh, so bump the `?v=` on the
+`favicon.svg` link in all four pages when the icon changes — that is what
+actually forces the update.
+
 ## Deploy
 
 GitHub Pages serves griffingarland.com from `main`:
