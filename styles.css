@@ -107,6 +107,9 @@ body {
   overflow-wrap: anywhere;
 }
 .intro .line { margin-top: 0; }
+/* Any page whose first element is a prompt line (the game pages) would
+   otherwise inherit the section-spacing margin as dead space up top. */
+.screen > *:first-child { margin-top: 0; }
 .prompt { color: var(--amber); margin-right: .55rem; user-select: none; }
 
 .cursor {

@@ -42,7 +42,9 @@
     nextCells.push(d);
   }
 
-  let grid, cur, nextPiece, score, lines, level, dropMs, acc, last, dead, paused, confirming, bag = [];
+  let grid, cur, nextPiece, score, lines, level, dropMs, acc, last;
+  let dead, paused, confirming, waiting, flashing, flashTimer, bag = [];
+  const FLASH_MS = 160;
 
   // 7-bag randomiser: every piece appears once per seven, which is what
   // makes the game feel fair rather than random.
@@ -107,24 +109,33 @@
         if (gy < 0) { gameOver(); return; }
         grid[gy][cur.x + x] = cur.c;
       }
-    clearLines();
-    if (!dead) spawn();
+    const full = [];
+    for (let y = 0; y < ROWS; y++) if (grid[y].every(Boolean)) full.push(y);
+    if (full.length) flashRows(full);
+    else spawn();
   }
 
-  function clearLines() {
-    let cleared = 0;
-    for (let y = ROWS - 1; y >= 0; y--) {
-      if (grid[y].every(Boolean)) {
+  // Light the completed rows for a beat before collapsing them, so a clear
+  // is something you see rather than something you infer from the score.
+  function flashRows(rows) {
+    flashing = true;
+    draw();
+    for (const y of rows)
+      for (let x = 0; x < COLS; x++) cells[y * COLS + x].className = 'cell clearing';
+    flashTimer = setTimeout(() => {
+      // ascending order: splicing a row only shifts the rows above it, so
+      // the indices still to be removed stay valid
+      for (const y of rows) {
         grid.splice(y, 1);
         grid.unshift(new Array(COLS).fill(0));
-        cleared++; y++;
       }
-    }
-    if (!cleared) return;
-    lines += cleared;
-    score += [0, 100, 300, 500, 800][cleared] * level;
-    const lv = Math.floor(lines / 10) + 1;
-    if (lv !== level) { level = lv; dropMs = Math.max(90, 800 - (level - 1) * 70); }
+      lines += rows.length;
+      score += [0, 100, 300, 500, 800][rows.length] * level;
+      const lv = Math.floor(lines / 10) + 1;
+      if (lv !== level) { level = lv; dropMs = Math.max(90, 800 - (level - 1) * 70); }
+      flashing = false;
+      if (!dead) { spawn(); draw(); }
+    }, FLASH_MS);
   }
 
   function draw() {
@@ -169,11 +180,11 @@
     overlay.innerHTML = '<p>game over</p><p class="sub">score ' + score +
       '</p><button id="again" class="btn">play again</button>';
     overlay.hidden = false;
-    $('again').addEventListener('click', reset);
+    $('again').addEventListener('click', () => reset(true));
   }
 
   function setPaused(p) {
-    if (dead || confirming) return;
+    if (dead || confirming || waiting) return;
     paused = p;
     overlay.innerHTML = '<p>paused</p><p class="sub">press p to resume</p>';
     overlay.hidden = !p;
@@ -182,8 +193,8 @@
   // Restarting throws away a game in progress, so it asks first — unless
   // there is nothing to lose yet.
   function askRestart() {
-    if (dead) { reset(); return; }
-    if (score === 0 && lines === 0) { reset(); return; }
+    if (dead) { reset(true); return; }
+    if (score === 0 && lines === 0) { reset(true); return; }
     confirming = true;
     overlay.innerHTML =
       '<p>restart?</p><p class="sub">this ends the current game</p>' +
@@ -191,7 +202,7 @@
       '<button id="no" class="btn">cancel</button></div>' +
       '<p class="sub">enter to confirm &middot; esc to cancel</p>';
     overlay.hidden = false;
-    $('yes').addEventListener('click', () => { confirming = false; reset(); });
+    $('yes').addEventListener('click', () => { confirming = false; reset(true); });
     $('no').addEventListener('click', cancelRestart);
     $('no').focus();
   }
@@ -203,19 +214,40 @@
     last = undefined;          // don't let the paused time count as one tick
   }
 
-  function reset() {
+  function showStart() {
+    waiting = true;
+    overlay.innerHTML =
+      '<p>tetris</p><p class="sub">come on, you know how to play</p>' +
+      '<div class="choices"><button id="go" class="btn">start</button></div>' +
+      '<p class="sub">or press enter</p>';
+    overlay.hidden = false;
+    $('go').addEventListener('click', start);
+    $('go').focus();
+  }
+
+  function start() {
+    waiting = false;
+    overlay.hidden = true;
+    overlay.innerHTML = '';
+    last = undefined;
+  }
+
+  function reset(autostart) {
     grid = Array.from({ length: ROWS }, () => new Array(COLS).fill(0));
     score = 0; lines = 0; level = 1; dropMs = 800; acc = 0;
-    dead = false; paused = false; confirming = false; bag = []; nextPiece = null;
+    dead = false; paused = false; confirming = false; flashing = false;
+    clearTimeout(flashTimer);
+    bag = []; nextPiece = null;
     overlay.hidden = true; overlay.innerHTML = '';
     bestEl.textContent = readBest();
     spawn(); draw();
+    if (autostart) start(); else showStart();
   }
 
   function loop(t) {
     if (last === undefined) last = t;
     const dt = t - last; last = t;
-    if (!dead && !paused && !confirming) {
+    if (!dead && !paused && !confirming && !waiting && !flashing) {
       acc += dt;
       if (acc >= dropMs) { acc = 0; softDrop(); }
       draw();
@@ -233,7 +265,7 @@
   };
 
   function act(name) {
-    if (dead || paused || confirming) return;
+    if (dead || paused || confirming || waiting || flashing) return;
     ACTIONS[name]();
     draw();
   }
@@ -249,11 +281,15 @@
   addEventListener('keydown', (e) => {
     if (confirming) {
       if (e.key === 'Enter' || e.key === 'y' || e.key === 'Y') {
-        e.preventDefault(); confirming = false; reset();
+        e.preventDefault(); confirming = false; reset(true);
       } else if (e.key === 'Escape' || e.key === 'n' || e.key === 'N') {
         e.preventDefault(); cancelRestart();
       }
       return;                  // swallow everything else mid-prompt
+    }
+    if (waiting) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); start(); }
+      return;
     }
     if (e.key === 'p' || e.key === 'P') { setPaused(!paused); return; }
     if (e.key === 'r' || e.key === 'R') { askRestart(); return; }
@@ -288,6 +324,6 @@
   addEventListener('blur', () => setPaused(true));
   document.addEventListener('visibilitychange', () => { if (document.hidden) setPaused(true); });
 
-  reset();
+  reset(false);
   requestAnimationFrame(loop);
 })();
