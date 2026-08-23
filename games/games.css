@@ -82,7 +82,7 @@
 
 /* touch controls -------------------------------------------------------- */
 .pad {
-  display: grid; grid-template-columns: repeat(5, 1fr);
+  display: grid; grid-template-columns: repeat(6, 1fr);
   gap: .5rem; margin-top: 1.1rem; max-width: 24rem;
   margin-inline: auto; width: 100%;
 }

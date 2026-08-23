@@ -461,14 +461,23 @@
     act(a);
   });
 
+  // Press-and-hold repeat. Sideways movement wants a pause before repeating
+  // so a single tap nudges by one; soft drop wants to get going quickly,
+  // because holding it is the whole point. Neither is instant — that is what
+  // the hard-drop button is for.
+  const REPEAT = {
+    left:  { delay: 220, every: 60 },
+    right: { delay: 220, every: 60 },
+    down:  { delay: 110, every: 40 },
+  };
   document.querySelectorAll('[data-act]').forEach((btn) => {
     let holdT, rep;
     const name = btn.dataset.act;
     const startPress = (e) => {
       e.preventDefault();
       act(name);
-      if (name === 'left' || name === 'right' || name === 'down')
-        holdT = setTimeout(() => { rep = setInterval(() => act(name), 60); }, 220);
+      const r = REPEAT[name];
+      if (r) holdT = setTimeout(() => { rep = setInterval(() => act(name), r.every); }, r.delay);
     };
     const stop = () => { clearTimeout(holdT); clearInterval(rep); };
     btn.addEventListener('pointerdown', startPress);
