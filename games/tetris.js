@@ -1,4 +1,4 @@
-/* Tetris — plain JS, no dependencies.
+/* Tetris — Soviets greatest game
    Follows the Tetris Guideline where it affects how the game feels:
    SRS rotation with the real kick tables, 0.5s lock delay with move reset,
    hold, 7-bag randomisation, the Tetris Worlds gravity curve, and
