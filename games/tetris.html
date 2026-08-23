@@ -35,6 +35,7 @@
       <div class="stage">
         <div id="board" role="img" aria-label="Tetris playing field"></div>
         <div id="overlay" hidden></div>
+        <p id="msg" aria-live="polite"></p>
       </div>
 
       <div class="hud">
@@ -42,6 +43,7 @@
         <div><h2>best</h2><p class="stat" id="best">0</p></div>
         <div><h2>lines</h2><p class="stat" id="lines">0</p></div>
         <div><h2>level</h2><p class="stat" id="level">1</p></div>
+        <div id="holdbox"><h2>hold</h2><div id="hold" aria-hidden="true"></div></div>
         <div id="nextbox"><h2>next</h2><div id="next" aria-hidden="true"></div></div>
       </div>
     </div>
@@ -51,6 +53,7 @@
       <button data-act="rot"   aria-label="Rotate">&#8635;</button>
       <button data-act="right" aria-label="Move right">&#9654;</button>
       <button data-act="drop"  aria-label="Hard drop">&#8615;</button>
+      <button data-act="hold"  aria-label="Hold piece">hold</button>
     </div>
 
     <div class="ctrls">
@@ -59,8 +62,9 @@
     </div>
 
     <p class="keys">
-      keyboard: &larr; &rarr; move &middot; &uarr; rotate &middot; &darr; soft drop
-      &middot; space hard drop &middot; p pause &middot; r restart
+      keyboard: &larr; &rarr; move &middot; &uarr;/x rotate &middot; z rotate ccw
+      &middot; &darr; soft drop &middot; space hard drop &middot; c hold
+      &middot; p pause &middot; r restart
     </p>
 
     <p class="line last"><span class="prompt">$</span> <span class="cursor" aria-hidden="true"></span></p>
