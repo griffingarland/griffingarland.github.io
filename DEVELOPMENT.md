@@ -91,6 +91,12 @@ a minute or two.
 
 ## Notes
 
+- The footer is byte-identical on every page and uses root-relative links
+  (`/resume.html`, not `resume.html`), which is what lets the same markup
+  work from `/` and from `/games/`. If you edit it, edit all four copies.
+  This assumes the site is served from a domain root — it is, on
+  griffingarland.com and under `python3 -m http.server` from the repo root.
+
 - Both pages are indexable. `robots.txt` disallows `resume.pdf` only — it's
   meant to be reached from a link, not found in search.
 - The DNS records are two CNAMEs at Cloudflare (`@` and `www`, both pointing
