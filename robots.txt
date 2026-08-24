@@ -7,3 +7,5 @@ Allow: /
 # forwarded, and unlike a page you can't edit a copy back out of someone's
 # index. Hand it out via the link instead.
 Disallow: /resume.pdf
+
+Sitemap: https://griffingarland.com/sitemap.xml

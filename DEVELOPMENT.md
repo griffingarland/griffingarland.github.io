@@ -9,7 +9,8 @@ styles.css      all styling, shared by both pages
 minimize.js     yellow traffic light: collapse the panels into a dock
 close.js        red traffic light: close the panels, then Clippy objects
 resume.pdf      built from resume-src/ (see below)
-robots.txt      indexable, except the PDF
+robots.txt      indexable, except the PDF; points at the sitemap
+sitemap.xml     the canonical https URL of every page
 CNAME           custom domain for GitHub Pages
 ```
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Every URL here is the https, no-www canonical — the same string as each
+     page's <link rel="canonical">. That's the point of the file: it hands
+     Google the exact form of each URL to index, so it never has to guess
+     between the http/www variants that 301 here.
+
+     No <lastmod>/<changefreq>/<priority>: Google ignores the last two, and a
+     hand-maintained lastmod goes stale and starts lying. Nothing to keep in
+     sync — just add a line when you add a page. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://griffingarland.com/</loc></url>
+  <url><loc>https://griffingarland.com/resume.html</loc></url>
+  <url><loc>https://griffingarland.com/games/</loc></url>
+  <url><loc>https://griffingarland.com/games/tetris.html</loc></url>
+</urlset>
