@@ -16,6 +16,10 @@
    pad always sits directly under it however tall the HUD gets. */
 .game {
   display: grid; grid-template-columns: auto auto;
+  /* Row 1 is pinned to the board's exact height rather than left on auto, so
+     the taller HUD beside it can never stretch the row and push the pad down.
+     Keep in sync with #board: 20 rows, 1px gaps, 1px padding, 1px border. */
+  grid-template-rows: calc(20 * var(--cell) + 23px) auto auto;
   column-gap: clamp(1rem, 4vw, 2.5rem); row-gap: 0;
   justify-content: center; justify-items: center; align-items: start;
 }
@@ -56,30 +60,35 @@
 .cell.l{background:var(--l)}
 
 /* side panel ------------------------------------------------------------ */
-/* Six stacked items make this column taller than the 20-row board. .game is
-   a flex row, so it takes the HUD's height and leaves a dead strip under the
-   shorter board, above the touch pad. Pairing hold and next on one row pulls
-   the column back under the board — and puts them either side of centre, the
-   way every other Tetris does. */
-.hud {
-  display: grid; grid-template-columns: repeat(2, auto);
-  gap: 1.25rem; min-width: 9rem; align-content: start;
-}
-.hud > div { grid-column: 1 / -1; }   /* stats keep the full width */
-#holdbox { grid-column: 1; }
-#nextbox { grid-column: 2; }
+/* One item per row, hold and next included. Six stacked items make this
+   column taller than the board — see the row pinning in .game, which is what
+   keeps that from reopening a gap above the touch pad. */
+.hud { display: flex; flex-direction: column; gap: 1.5rem; min-width: 9rem; }
 .hud h2 { font-size: .8em; color: var(--dim); font-weight: 400; margin: 0 0 .35rem; }
-.stat { color: var(--fg-strong); font-size: 1.5em; line-height: 1; }
+/* margin:0 drops the UA default of 1em top and bottom — which at 1.5em type
+   is 24px a side, ~190px of stray height across the four stats. Spacing is
+   the .hud gap alone now: tight between a label and its value, generous
+   between one stat and the next. */
+.stat { color: var(--fg-strong); font-size: 1.5em; line-height: 1; margin: 0; }
 
 /* visibility, not display: the slot keeps its space so the HUD doesn't
    reflow when the game starts */
 #nextbox.off, #holdbox.off { visibility: hidden; }
 
+/* An empty slot shows nothing at all: the cells still lay out, so the box
+   keeps its size and the HUD doesn't reflow when a piece arrives, but the
+   unfilled ones drop their background instead of reading as a dark 4x4 grid.
+   The label alone marks the space. */
+#next .cell:not(.f), #hold .cell:not(.f) { background: none; }
+
+/* Fixed 4x4-sized box, but the tracks inside are only as big as the piece
+   and place-content centres them. JS sets grid-template-columns per piece. */
 #next, #hold {
-  display: grid;
-  grid-template-columns: repeat(4, calc(var(--cell) * .72));
-  grid-template-rows: repeat(4, calc(var(--cell) * .72));
-  gap: 1px;
+  --mini: calc(var(--cell) * .72);
+  display: grid; grid-auto-rows: var(--mini); gap: 1px;
+  place-content: center;
+  width:  calc(4 * var(--mini) + 3px);
+  height: calc(4 * var(--mini) + 3px);
 }
 
 /* overlay --------------------------------------------------------------- */
@@ -135,13 +144,16 @@
   .pad { margin-top: .75rem; }
   .pad button { padding: .7rem 0; }
   /* one column, board -> stats -> pad -> pause/restart */
-  .game { grid-template-columns: minmax(0, 1fr); column-gap: 0; }
+  .game {
+    grid-template-columns: minmax(0, 1fr); grid-template-rows: none;
+    column-gap: 0;
+  }
   .pad   { grid-row: 3; }
   .ctrls { grid-row: 4; }
   .hud {
     grid-column: 1; grid-row: 2;
-    /* back to one full-width row of six; the grid above is desktop-only */
-    display: flex; flex-direction: row; min-width: 0; width: 100%;
+    /* one full-width row of six, not a column */
+    flex-direction: row; min-width: 0; width: 100%;
     justify-content: space-between; align-items: flex-start; gap: .75rem;
   }
   .stat { font-size: 1.15em; }

@@ -67,8 +67,6 @@
     return out;
   };
   const cells = mkCells(boardEl, COLS * ROWS);
-  const nextCells = mkCells(nextEl, 16);
-  const holdCells = mkCells(holdEl, 16);
 
   let grid, cur, nextKind, holdKind, holdUsed;
   let score, lines, level, dropMs, acc, last, lockAcc, lockResets;
@@ -278,16 +276,32 @@
   }
 
   // ---- rendering ---------------------------------------------------------
-  function paintMini(target, kind) {
-    for (const c of target) c.className = 'cell';
+  /* Build only the piece's bounding box and let the grid centre it. Painting
+     a whole 4x4 and nudging 3x3 pieces over by one put them flush against the
+     right edge, and no whole-cell offset can centre 3 columns inside 4.
+     draw() runs every frame, so bail out unless the piece actually changed. */
+  function paintMini(el, kind) {
+    if (el.dataset.kind === (kind || '')) return;
+    el.dataset.kind = kind || '';
+    el.textContent = '';
     if (!kind) return;
-    const m = PIECES[kind].m, off = m.length === 4 ? 0 : 1;
+    const m = PIECES[kind].m;
+    let x0 = m.length, x1 = -1, y0 = m.length, y1 = -1;
     for (let y = 0; y < m.length; y++)
       for (let x = 0; x < m.length; x++)
-        if (m[y][x] && y + off < 4 && x + off < 4)
-          target[(y + off) * 4 + x + off].className = 'cell f ' + PIECES[kind].c;
+        if (m[y][x]) {
+          if (x < x0) x0 = x;  if (x > x1) x1 = x;
+          if (y < y0) y0 = y;  if (y > y1) y1 = y;
+        }
+    el.style.gridTemplateColumns = `repeat(${x1 - x0 + 1}, var(--mini))`;
+    for (let y = y0; y <= y1; y++)
+      for (let x = x0; x <= x1; x++) {
+        const d = document.createElement('div');
+        d.className = m[y][x] ? 'cell f ' + PIECES[kind].c : 'cell';
+        el.appendChild(d);
+      }
   }
-  const drawHold = () => paintMini(holdCells, holdKind);
+  const drawHold = () => paintMini(holdEl, holdKind);
 
   function paint(m, px, py, cls) {
     for (let y = 0; y < m.length; y++)
@@ -310,7 +324,7 @@
       paint(cur.m, cur.x, gy, 'ghost');
       paint(cur.m, cur.x, cur.y, 'f ' + cur.c);
     }
-    paintMini(nextCells, nextKind);
+    paintMini(nextEl, nextKind);
     scoreEl.textContent = score;
     linesEl.textContent = lines;
     levelEl.textContent = level;
