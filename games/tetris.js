@@ -436,7 +436,7 @@
     ArrowDown: 'down', s: 'down', S: 'down',
     ArrowUp: 'rot', w: 'rot', W: 'rot', x: 'rot', X: 'rot',
     z: 'ccw', Z: 'ccw',
-    c: 'hold', C: 'hold', Shift: 'hold',
+    c: 'hold', C: 'hold', h: 'hold', H: 'hold', Shift: 'hold',
     ' ': 'drop',
   };
 
