@@ -7,12 +7,23 @@
   --cell: clamp(15px, 6.4vw, 28px);
 }
 
+/* Two explicit columns: board stacked over its controls on the left, HUD on
+   the right. A flex row centred the board+HUD *pair*, which left the board
+   off-centre while .pad centred itself on the full page width — so the
+   buttons sat ~113px right of the board. Sharing column 1 makes "centred"
+   mean the same thing for both.
+   The HUD spans all three rows, so row 1 is sized by the board alone and the
+   pad always sits directly under it however tall the HUD gets. */
 .game {
-  display: flex; flex-wrap: wrap; gap: clamp(1rem, 4vw, 2.5rem);
-  align-items: flex-start; justify-content: center;
+  display: grid; grid-template-columns: auto auto;
+  column-gap: clamp(1rem, 4vw, 2.5rem); row-gap: 0;
+  justify-content: center; justify-items: center; align-items: start;
 }
 
-.stage { position: relative; }
+.stage { position: relative; grid-column: 1; grid-row: 1; }
+.hud   { grid-column: 2; grid-row: 1 / span 3; }
+.pad   { grid-column: 1; grid-row: 2; }
+.ctrls { grid-column: 1; grid-row: 3; }
 
 #board {
   display: grid;
@@ -45,7 +56,18 @@
 .cell.l{background:var(--l)}
 
 /* side panel ------------------------------------------------------------ */
-.hud { display: flex; flex-direction: column; gap: 1.25rem; min-width: 9rem; }
+/* Six stacked items make this column taller than the 20-row board. .game is
+   a flex row, so it takes the HUD's height and leaves a dead strip under the
+   shorter board, above the touch pad. Pairing hold and next on one row pulls
+   the column back under the board — and puts them either side of centre, the
+   way every other Tetris does. */
+.hud {
+  display: grid; grid-template-columns: repeat(2, auto);
+  gap: 1.25rem; min-width: 9rem; align-content: start;
+}
+.hud > div { grid-column: 1 / -1; }   /* stats keep the full width */
+#holdbox { grid-column: 1; }
+#nextbox { grid-column: 2; }
 .hud h2 { font-size: .8em; color: var(--dim); font-weight: 400; margin: 0 0 .35rem; }
 .stat { color: var(--fg-strong); font-size: 1.5em; line-height: 1; }
 
@@ -91,6 +113,9 @@
   touch-action: manipulation;   /* no double-tap zoom while playing */
   user-select: none;
 }
+/* the only button with a word rather than a glyph, and four monospace
+   characters overrun the column. 1.15rem x .8 */
+.pad [data-act="hold"] { font-size: .92rem; }
 .keys { color: var(--dim); font-size: .82em; margin-top: 1rem; text-align: center; }
 .ctrls { display: flex; gap: .6rem; justify-content: center; margin-top: 1rem; }
 
@@ -109,9 +134,14 @@
   .ctrls { margin-top: .7rem; }     /* pause/restart must stay reachable */
   .pad { margin-top: .75rem; }
   .pad button { padding: .7rem 0; }
-  .game { gap: 1rem; }
+  /* one column, board -> stats -> pad -> pause/restart */
+  .game { grid-template-columns: minmax(0, 1fr); column-gap: 0; }
+  .pad   { grid-row: 3; }
+  .ctrls { grid-row: 4; }
   .hud {
-    flex-direction: row; min-width: 0; width: 100%;
+    grid-column: 1; grid-row: 2;
+    /* back to one full-width row of six; the grid above is desktop-only */
+    display: flex; flex-direction: row; min-width: 0; width: 100%;
     justify-content: space-between; align-items: flex-start; gap: .75rem;
   }
   .stat { font-size: 1.15em; }
