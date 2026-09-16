@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy — Griffin Garland</title>
+<meta name="description" content="What this site stores, which is almost nothing: no analytics, no tracking, no cookies.">
+<meta name="author" content="Griffin Garland">
+<link rel="canonical" href="https://griffingarland.com/privacy.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Griffin Garland">
+<meta property="og:title" content="Privacy — Griffin Garland">
+<meta property="og:description" content="What this site stores, which is almost nothing: no analytics, no tracking, no cookies.">
+<meta property="og:url" content="https://griffingarland.com/privacy.html">
+<meta property="og:image" content="https://griffingarland.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="crt" aria-hidden="true"></div>
+
+<div class="window">
+  <div class="titlebar">
+    <span class="dots"><button type="button" class="r" aria-label="Close window"></button><button type="button" class="y" aria-label="Minimize window"></button><i class="g" aria-hidden="true"></i></span>
+    <span class="titletext">griffin@portfolio: ~ — zsh</span>
+  </div>
+
+  <main class="screen" id="main">
+
+    <section aria-labelledby="privacy-h">
+      <p class="line"><span class="prompt">$</span> cat privacy.md</p>
+      <h1 id="privacy-h" class="sr-only">Privacy</h1>
+      <div class="prose">
+        <p>
+          This is a personal portfolio site. It has no analytics, no tracking
+          pixels, no advertising, no third-party scripts or fonts, and no
+          contact form. It sets no cookies. There is no account to create and
+          nothing to sign up for.
+        </p>
+        <p>
+          What follows is everything there is to say, which is not much.
+        </p>
+      </div>
+    </section>
+
+    <section aria-labelledby="device-h">
+      <p class="line"><span class="prompt">$</span> ls ~/.local/state</p>
+      <h2 id="device-h" class="sr-only">Stored on your device</h2>
+      <div class="prose">
+        <p>
+          One thing gets saved in your browser, and only if you play the game:
+          your best score, kept in localStorage under the key tetris.best.
+        </p>
+        <p>
+          It is a single number. It is not tied to a name, an account, or an
+          identifier, and it cannot be used to recognise you. It never leaves
+          your device — unlike a cookie, localStorage is not attached to
+          network requests, so it is never sent anywhere and I never see it.
+        </p>
+        <p>
+          It lives in that one browser on that one device, so it does not
+          follow you to your phone or to a different browser. Clearing your
+          site data removes it, and a private window discards it when you
+          close the tab.
+        </p>
+      </div>
+    </section>
+
+    <section aria-labelledby="logs-h">
+      <p class="line"><span class="prompt">$</span> tail /var/log/access.log</p>
+      <h2 id="logs-h" class="sr-only">Server logs</h2>
+      <div class="prose">
+        <p>
+          The site is a handful of static files served by a web host. Like
+          every web server, that host writes ordinary request logs — IP
+          address, timestamp, the file requested, browser user-agent — in
+          order to serve the pages and to defend against abuse.
+        </p>
+        <p>
+          I have not added anything on top of those logs. There is no
+          analytics layer, no dashboard, and no profile of visitors built from
+          them. This is the same thing that happens when you visit any
+          website anywhere.
+        </p>
+      </div>
+    </section>
+
+    <section aria-labelledby="third-h">
+      <p class="line"><span class="prompt">$</span> grep -rn 'third-party' .</p>
+      <h2 id="third-h" class="sr-only">Third parties</h2>
+      <div class="prose">
+        <p>
+          Nothing. Every file the site loads — stylesheets, scripts, icons,
+          images — comes from this domain. No CDN, no webfonts from someone
+          else's server, no embeds.
+        </p>
+        <p>
+          There are outbound links to LinkedIn and GitHub. Those reach anyone
+          only if you click them, and once you do, that site's own privacy
+          policy applies rather than this one.
+        </p>
+      </div>
+    </section>
+
+    <section aria-labelledby="rights-h">
+      <p class="line"><span class="prompt">$</span> cat rights.md</p>
+      <h2 id="rights-h" class="sr-only">Your data</h2>
+      <div class="prose">
+        <p>
+          Because the site collects nothing that identifies you, there is
+          nothing held about you to hand over, correct, or delete. The one
+          piece of stored data is your high score, it sits on your device, and
+          you can clear it yourself at any time.
+        </p>
+        <p>
+          If you have a question about any of this, reach me on
+          <a href="https://www.linkedin.com/in/griffingarland/" rel="me noopener">LinkedIn</a>.
+        </p>
+        <p class="dim">Last updated 27 August 2026.</p>
+      </div>
+    </section>
+
+    <p class="line last"><span class="prompt">$</span> <span class="cursor" aria-hidden="true"></span></p>
+
+  </main>
+</div>
+
+<footer class="footbar">
+  <p class="line"><span class="prompt">$</span> ls ~/links</p>
+  <ul class="contact">
+    <li><a href="/">home</a></li>
+    <li><a href="/resume.html">resume</a></li>
+    <li><a href="/games/tetris.html">tetris</a></li>
+    <li><a href="/privacy.html">privacy</a></li>
+    <li><a href="https://www.linkedin.com/in/griffingarland/" rel="me noopener">linkedin</a></li>
+    <li><a href="https://github.com/griffingarland" rel="me noopener">github</a></li>
+  </ul>
+</footer>
+<script src="/minimize.js" defer></script>
+<script src="/close.js" defer></script>
+</body>
+</html>

@@ -111,22 +111,13 @@
 % Phone and email are deliberately omitted -- this PDF is served publicly
 % from griffingarland.com and would otherwise be scraped.
 % The full-contact version lives in ~/src/resume/resume.tex.
+
 \begin{center}
     \textbf{\Huge \scshape Griffin Garland} \\ \vspace{4pt}
     \small New York, NY $|$
     \href{https://griffingarland.com}{\underline{griffingarland.com}} $|$
     \href{https://www.linkedin.com/in/griffingarland/}{\underline{linkedin.com/in/griffingarland}}
 \end{center}
-
-
-%-----------SUMMARY-----------
-\section{Summary}
- \begin{itemize}[leftmargin=0.15in, label={}]
-    \small{\item{
-    Software engineer with 10+ years of experience building C++ and Python systems in financial technology, currently leading the static
-    analysis and automated refactoring team at Bloomberg. Depth in static analysis, large-scale migration, and high-performance distributed systems.
-    }}
- \end{itemize}
 
 
 %-----------TECHNICAL SKILLS-----------
@@ -145,12 +136,20 @@
   \resumeSubHeadingListStart
 
      \resumeSubheading
-      {Software Engineering Team Lead}{April 2024 -- Present}
+      {Senior Software Engineer}{August 2026 -- Present}
       {Bloomberg LP (Developer Experience Department)}{New York City, NY, USA}
       \resumeItemListStart
-        \resumeItem{Drive architecture and technical direction for static analysis across Bloomberg's codebase as team lead of STAAR (Static Analysis and Automated Refactoring); leading 6 engineers plus 2 contractors.}
-        \resumeItem{Operate and scale the STAAR pipeline, a distributed static analysis system running over 2.5 million jobs per week across tens of thousands of independent repositories, exposing issues via Bloomberg's initiative reporting dashboard.}
-        \resumeItem{Integrate static analysis into Bloomberg's meta-build system (berg) and CI platform (Devise), creating a unified interface for running and getting static analysis results across all supported languages.}
+        \resumeItem{Contributing to Spaces, Bloomberg's containerized platform for software development and AI coding agents, and Sidekick, an AI refactoring service on it that turns a prompt into a pull request via Claude and applies follow-up fixes from reviewer comments.}
+        \resumeItem{Implementing Spaces Variants, a least-privilege agent sandbox that restricts capabilities, such as shell and docker access, extending safe agent use to non-engineers.}
+      \resumeItemListEnd
+
+     \resumeSubheading
+      {Software Engineering Team Lead}{April 2024 -- August 2026}
+      {Bloomberg LP (Developer Experience Department)}{New York City, NY, USA}
+      \resumeItemListStart
+        \resumeItem{Drove architecture and technical direction for static analysis across Bloomberg's codebase as team lead of STAAR (Static Analysis and Automated Refactoring); leading 6 engineers plus 2 contractors.}
+        \resumeItem{Operated and scaled the STAAR pipeline, a distributed static analysis system running over 2.5 million jobs per week across tens of thousands of independent repositories, exposing issues via Bloomberg's initiative reporting dashboard.}
+        \resumeItem{Integrated static analysis into Bloomberg's meta-build system (berg) and CI platform (Devise), creating a unified interface for running and getting static analysis results across all supported languages.}
         \resumeItem{Delivered coverage for all 6 of Bloomberg's tier one and tier two languages to satisfy EU DORA and SSDF regulatory requirements.}
         \resumeItem{Partnered with the CISO to detect over 500 vulnerability/language permutations, including SQL injection and memory safety issues.}
       \resumeItemListEnd
