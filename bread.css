@@ -1,0 +1,77 @@
+/* Bread page only. Deliberately NOT the terminal theme: a plain, warm
+   blog look. It doesn't load styles.css, so nothing here affects other pages.
+   No web fonts: the serif stack below uses fonts already on the device. */
+
+:root {
+  --bg:     #faf6ef;   /* cream */
+  --text:   #2b2520;
+  --muted:  #7a6d62;
+  --accent: #9a5b2e;   /* crust brown */
+  --rule:   #e6dccd;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Charter,
+           Georgia, Cambria, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif;
+  color-scheme: light dark;
+}
+/* Dark mode follows the visitor's OS setting. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:     #1c1815;
+    --text:   #ece4da;
+    --muted:  #a89a8c;
+    --accent: #e0a46e;
+    --rule:   #3a322b;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 1.125rem/1.65 var(--serif);
+}
+
+/* One centred column. 38rem keeps lines a comfortable reading length;
+   the 1rem side padding is the gutter on phones. */
+.wrap { max-width: 38rem; margin: 0 auto; padding: 0 1rem; }
+
+a { color: var(--accent); text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 1rem; top: 1rem; background: var(--bg); padding: .25rem .5rem; }
+
+/* ---- header ------------------------------------------------------------ */
+.site-header { padding: 2.5rem 0 1.5rem; border-bottom: 1px solid var(--rule); }
+.site-name {
+  font: 600 .85rem/1 var(--sans);
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none;
+}
+.site-header h1 { margin: .6rem 0 .25rem; font-size: 2.4rem; line-height: 1.15; font-weight: 600; }
+.tagline { margin: 0; color: var(--muted); font-style: italic; }
+
+/* ---- posts ------------------------------------------------------------- */
+.post { padding: 2rem 0; border-bottom: 1px solid var(--rule); }
+.post h2 { margin: 0 0 .75rem; font-size: 1.5rem; line-height: 1.25; font-weight: 600; }
+.post p { margin: .9rem 0 0; }
+/* width/height in the HTML reserve the space so the page doesn't jump while
+   the photo loads; this lets it shrink to fit narrow (phone) screens. */
+.post img {
+  display: block; width: 100%; height: auto;
+  border-radius: 6px;
+}
+/* Dates are kept in the HTML but hidden. Delete this rule to show them. */
+.post-date {
+  display: none;
+  font: .85rem var(--sans); color: var(--muted); margin: -.5rem 0 .75rem;
+}
+
+/* ---- footer ------------------------------------------------------------ */
+.site-footer { padding: 1.5rem 0 3rem; font: .9rem var(--sans); color: var(--muted); }
+.site-footer ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .4rem 1.1rem; }
+.site-footer [aria-current] { color: var(--text); text-decoration: none; font-weight: 600; }

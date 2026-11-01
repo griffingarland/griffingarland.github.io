@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Griffin&rsquo;s Bread Zone</title>
+<meta name="description" content="Loaves of bread Griffin Garland has baked.">
+<meta name="author" content="Griffin Garland">
+<link rel="canonical" href="https://griffingarland.com/bread.html">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Griffin’s Bread Zone">
+<meta property="og:description" content="Loaves of bread Griffin Garland has baked.">
+<meta property="og:url" content="https://griffingarland.com/bread.html">
+<meta property="og:site_name" content="Griffin Garland">
+<meta property="og:image" content="https://griffingarland.com/og.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<!-- Its own stylesheet, not styles.css: this page is a blog, not the terminal. -->
+<link rel="stylesheet" href="bread.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="wrap">
+  <header class="site-header">
+    <a class="site-name" href="/">Griffin Garland</a>
+    <h1>Griffin&rsquo;s Bread Zone</h1>
+    <p class="tagline">Welcome to my bread zone</p>
+  </header>
+
+  <main id="main">
+    <!-- New loaves go at the top. To add one: copy an <article> block,
+         put the photo in /bread/ (cwebp -q 72 -resize 600 0 -metadata icc
+         photo.jpg -o bread/loaf-NN.webp), and update the date and alt text.
+         Dates are recorded but hidden; see .post-date in bread.css. -->
+
+    <article class="post">
+      <h2>20% Whole Wheat Loaf</h2>
+      <time class="post-date" datetime="2026-10-25">October 25, 2026</time>
+      <img src="bread/loaf-01.webp" width="600" height="800"
+           alt="A round, golden-brown loaf with a deep score and a flour-dusted crust, on a wooden cutting board.">
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <ul>
+      <li><a href="/">home</a></li>
+      <li><a href="/resume.html">resume</a></li>
+      <li><a href="/bread.html" aria-current="page">bread</a></li>
+      <li><a href="/games/tetris.html">tetris</a></li>
+      <li><a href="/privacy.html">privacy</a></li>
+      <li><a href="https://www.linkedin.com/in/griffingarland/" rel="me noopener">linkedin</a></li>
+      <li><a href="https://github.com/griffingarland" rel="me noopener">github</a></li>
+    </ul>
+  </footer>
+</div>
+</body>
+</html>
