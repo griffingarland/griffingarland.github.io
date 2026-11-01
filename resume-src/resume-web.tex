@@ -84,6 +84,21 @@
     \end{tabular*}\vspace{-7pt}
 }
 
+% Company header (bold name, location) followed by one or more roles
+\newcommand{\resumeCompany}[2]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeRole}[2]{
+  \vspace{1pt}\item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & {\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
 \newcommand{\resumeProjectHeading}[2]{
     \item
     \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
@@ -107,16 +122,19 @@
 \begin{document}
 
 %----------HEADING----------
-% Web variant: contact details reduced to LinkedIn only.
-% Phone and email are deliberately omitted -- this PDF is served publicly
-% from griffingarland.com and would otherwise be scraped.
+% Web variant: phone and email deliberately omitted -- this PDF is served
+% publicly from griffingarland.com and would otherwise be scraped.
 % The full-contact version lives in ~/src/resume/resume.tex.
+% \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+%   \textbf{\href{http://sourabhbajaj.com/}{\Large Sourabh Bajaj}} & Email : \href{mailto:sourabh@sourabhbajaj.com}{sourabh@sourabhbajaj.com}\\
+%   \href{http://sourabhbajaj.com/}{http://www.sourabhbajaj.com} & Mobile : +1-123-456-7890 \\
+% \end{tabular*}
 
 \begin{center}
     \textbf{\Huge \scshape Griffin Garland} \\ \vspace{4pt}
     \small New York, NY $|$
-    \href{https://griffingarland.com}{\underline{griffingarland.com}} $|$
-    \href{https://www.linkedin.com/in/griffingarland/}{\underline{linkedin.com/in/griffingarland}}
+    \href{https://www.griffingarland.com}{\underline{griffingarland.com}} $|$
+    \href{https://www.linkedin.com/in/griffingarland/}{\underline{LinkedIn}}
 \end{center}
 
 
@@ -125,8 +143,9 @@
  \begin{itemize}[leftmargin=0.15in, label={}]
     \small{\item{
      \textbf{Languages}{: C++, Python, C, SQL, Bash} \\
-     \textbf{Systems}{: Linux, Distributed Systems, Redis, RabbitMQ, Kafka, RESTful APIs, AWS} \\
-     \textbf{Build \& Tooling}{: Static Analysis, CMake, Git, SVN, CI/CD, Docker, Claude Code} \\
+     \textbf{Systems}{: Linux, gRPC, Protobuf, Kafka, RabbitMQ, Redis, Docker, Kubernetes, AWS, REST APIs} \\
+     \textbf{Tooling}{: Clang/LLVM, Static Analysis, CMake, Git, CI/CD} \\
+     \textbf{AI}{: AI Coding Agents (Claude Code, Codex), Agent Sandboxing} \\
     }}
  \end{itemize}
 
@@ -135,62 +154,57 @@
 \section{Experience}
   \resumeSubHeadingListStart
 
-     \resumeSubheading
-      {Senior Software Engineer}{August 2026 -- Present}
-      {Bloomberg LP (Developer Experience Department)}{New York City, NY, USA}
+     \resumeCompany{Bloomberg LP}{New York City, NY, USA}
+
+     \resumeRole
+      {Senior Software Engineer, Developer Experience}{August 2026 -- Present}
       \resumeItemListStart
-        \resumeItem{Contributing to Spaces, Bloomberg's containerized platform for software development and AI coding agents, and Sidekick, an AI refactoring service on it that turns a prompt into a pull request via Claude and applies follow-up fixes from reviewer comments.}
-        \resumeItem{Implementing Spaces Variants, a least-privilege agent sandbox that restricts capabilities, such as shell and docker access, extending safe agent use to non-engineers.}
+        \resumeItem{Revived and redesigned geo-affinity for Spaces, Bloomberg's containerized platform for developers and AI coding agents (now in beta): rewrote the stalled design, replaced a non-working user-location detection method, and used geo-DNS to route users to a VM and gRPC/Protobuf terminal server in a nearby EMEA or APAC data center, cutting 200+ ms round trips.}
+        \resumeItem{Brought up region-local proxies and mirrors so the full development toolchain works in London, Frankfurt and Singapore.}
+        \resumeItem{Contributing to a least-privilege sandbox that lets non-engineers safely use AI agents: allowlisted tools, MCP servers and URLs, plus container and OS-level controls (no shell, proxy-only network access).}
+        \resumeItem{Improved reliability of Sidekick, a Claude-based service that turns prompts into PRs and fixes reviewer comments: fixed workspace-creation race conditions, surfaced launch failures, and extended review monitoring to the full PR lifetime.}
       \resumeItemListEnd
 
-     \resumeSubheading
-      {Software Engineering Team Lead}{April 2024 -- August 2026}
-      {Bloomberg LP (Developer Experience Department)}{New York City, NY, USA}
+     \resumeRole
+      {Software Engineering Team Lead, Developer Experience}{April 2024 -- August 2026}
       \resumeItemListStart
-        \resumeItem{Drove architecture and technical direction for static analysis across Bloomberg's codebase as team lead of STAAR (Static Analysis and Automated Refactoring); leading 6 engineers plus 2 contractors.}
-        \resumeItem{Operated and scaled the STAAR pipeline, a distributed static analysis system running over 2.5 million jobs per week across tens of thousands of independent repositories, exposing issues via Bloomberg's initiative reporting dashboard.}
-        \resumeItem{Integrated static analysis into Bloomberg's meta-build system (berg) and CI platform (Devise), creating a unified interface for running and getting static analysis results across all supported languages.}
-        \resumeItem{Delivered coverage for all 6 of Bloomberg's tier one and tier two languages to satisfy EU DORA and SSDF regulatory requirements.}
-        \resumeItem{Partnered with the CISO to detect over 500 vulnerability/language permutations, including SQL injection and memory safety issues.}
+        \resumeItem{Led 6 engineers plus 2 contractors owning Bloomberg's static analysis platform, a Kafka-based distributed pipeline running 2.5M+ jobs per week across tens of thousands of repos; wrote design docs, stayed about 50\% hands-on, and championed AI agents on the team.}
+        \resumeItem{Drove the move to running analysis tools in containers, improving reliability, debuggability and the experience for check authors.}
+        \resumeItem{Integrated static analysis into the company build system and CI, giving every repository one interface across all supported languages.}
+        \resumeItem{Maintained Clang LibTooling, clang-tidy and clang-query integrations; reviewed C++ checks contributed by infrastructure teams.}
+        \resumeItem{Expanded coverage to all 6 tier-one and tier-two languages and, with the CISO's office, 500+ vulnerability checks (SQL injection, memory safety), meeting EU DORA and SSDF requirements.}
+        \resumeItem{Designed a multi-agent development workflow (architect, implementer, test, reviewer and compatibility-checker agents under a lead agent) that turns a feature request into a phased design doc and tested code with cross-model review (Claude Code, Codex); also used agents with MCP log search to triage production issues and measure how often failures occur.}
       \resumeItemListEnd
 
-      \resumeSubheading
-      {Software Engineering Team Lead}{May 2022 -- March 2024}
-      {Bloomberg LP (Trading Solutions Department)}{New York City, NY, USA}
+      \resumeRole
+      {Software Engineering Team Lead, Trading Solutions}{May 2022 -- March 2024}
       \resumeItemListStart
-        \resumeItem{Owned technical direction and delivery for the Options and Loans team within AIM, Bloomberg's buy-side OMS; leading 5 engineers.}
-        \resumeItem{Co-owned the C++ ``Order Trade Entry'' ticketing engine processing up to hundreds of millions of transactions daily.}
-        \resumeItem{Led delivery of Bond Forwards and Loans support in the C++ ticketing engine, a gating requirement for institutional clients to onboard onto AIM; drove design and execution while implementing core order/trade persistence logic hands-on.}
-        \resumeItem{Partnered with AIM product owners to scope and prioritize the Options and Loans product roadmap, converting client requirements into technical designs and delivery plans.}
+        \resumeItem{Led 5 engineers on Bloomberg's buy-side order management system, co-owning its C++ order and trade entry engine, which processes up to hundreds of millions of transactions daily.}
+        \resumeItem{Delivered bond forward and loan support across multiple C++ services, required to onboard institutional clients: reference data validation, schema changes, and ORM and persistence work in a downstream transaction service; built key parts myself.}
       \resumeItemListEnd
 
-      \resumeSubheading
-      {Senior Software Engineer}{October 2017 -- May 2022}
-      {Bloomberg LP (Trading Solutions Department)}{New York City, NY, USA}
+      \resumeRole
+      {Senior Software Engineer, Trading Solutions}{October 2017 -- May 2022}
       \resumeItemListStart
-        \resumeItem{Tech lead for the cross-department integration between BSKT (Bloomberg's basket-trading product) and AIM, eliminating manual re-entry and bringing BSKT clients onto AIM.}
-        \resumeItem{Implemented a RabbitMQ-based queueing system for AIM's C++ ticketing engine, allowing durable messaging with high scaling.}
-        \resumeItem{Designed and implemented a Redis-backed distributed caching layer for the ``Order Defaults'' settings service, reducing settings page load time by a factor of 5 and latency for specific cached request types by a factor of 50, with a cache hit rate of over 99\%.}
-        \resumeItem{Migrated 21 core services and libraries to Linux as part of Bloomberg's company-wide migration off legacy UNIX OSes (Solaris and AIX).}
-        \resumeItem{Led the migration of JavaScript UI components to a new WebKit-based rendering engine as part of a company-wide initiative.}
-        \resumeItem{Selected as a technical leader of the Trading Solutions refactoring working group, helping developers migrate their legacy C++ to Linux.}
+        \resumeItem{Built a Redis-backed distributed cache for a settings service: 5x faster page loads, 50x lower latency on cached requests, 99\%+ hit rate.}
+        \resumeItem{Replaced a producer-coupled, database-backed queue with a general RabbitMQ messaging layer for the C++ trade engine's batch APIs.}
+        \resumeItem{Tech lead for integrating Bloomberg's basket-trading product with its order management system, eliminating manual re-entry of orders.}
+        \resumeItem{Ported 21 core C++ services and libraries from Solaris/AIX to Linux; technical leader in the department's Linux migration working group.}
       \resumeItemListEnd
 
-      \resumeSubheading
+      \resumeCompany{Solace Corporation}{Kanata, ON, Canada}
+
+      \resumeRole
       {Cloud Integration Software Engineer}{April 2017 -- August 2017}
-      {Solace Corporation}{Kanata, ON, Canada}
       \resumeItemListStart
-        \resumeItem{Implemented LDAP authentication in Java for the Solace Pivotal Cloud Foundry (PCF) tile.}
-        \resumeItem{Automated test environment provisioning with AWS CloudFormation, standing up pre-configured EC2 instances on demand.}
+        \resumeItem{Implemented LDAP authentication in Java for the Solace Cloud Foundry tile; automated AWS test environments with CloudFormation.}
       \resumeItemListEnd
 
-        \resumeSubheading
+      \resumeRole
       {Software Developer}{June 2015 -- March 2017}
-      {Solace Corporation}{Kanata, ON, Canada}
       \resumeItemListStart
         \resumeItem{Maintained and extended the C++ configuration management software for the Solace Messaging Appliance.}
-        \resumeItem{Designed and implemented a RESTful configuration management API in Python.}
-        \resumeItem{Redesigned the auto-generated Python command handling infrastructure around a polymorphic approach.}
+        \resumeItem{Designed and implemented a RESTful configuration API in Python; redesigned its generated command handling around polymorphism.}
       \resumeItemListEnd
       
 % -----------Multiple Positions Heading-----------

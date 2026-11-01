@@ -56,9 +56,11 @@
         <dt>Languages</dt>
         <dd>C++ · Python · C · SQL · Bash</dd>
         <dt>Systems</dt>
-        <dd>Linux · Distributed Systems · Redis · RabbitMQ · Kafka · RESTful APIs · AWS</dd>
-        <dt>Build &amp; Tooling</dt>
-        <dd>Static Analysis · CMake · Git · SVN · CI/CD · Docker · Claude Code</dd>
+        <dd>Linux · gRPC · Protobuf · Kafka · RabbitMQ · Redis · Docker · Kubernetes · AWS · REST APIs</dd>
+        <dt>Tooling</dt>
+        <dd>Clang/LLVM · Static Analysis · CMake · Git · CI/CD</dd>
+        <dt>AI</dt>
+        <dd>AI Coding Agents (Claude Code, Codex) · Agent Sandboxing</dd>
       </dl>
     </section>
 
@@ -71,8 +73,10 @@
         <p class="where">Bloomberg LP <span class="dim">(Developer Experience)</span> <span class="sep">·</span> New York, NY</p>
         <p class="when">August 2026 &ndash; Present</p>
         <ul>
-          <li>Contributing to Spaces, Bloomberg's containerized platform for software development and AI coding agents, and Sidekick, an AI refactoring service on it that turns a prompt into a pull request via Claude and applies follow-up fixes from reviewer comments.</li>
-          <li>Implementing Spaces Variants, a least-privilege agent sandbox that restricts capabilities, such as shell and docker access, extending safe agent use to non-engineers.</li>
+          <li>Revived and redesigned geo-affinity for Spaces, Bloomberg's containerized platform for developers and AI coding agents (now in beta): rewrote the stalled design, replaced a non-working user-location detection method, and used geo-DNS to route users to a VM and gRPC/Protobuf terminal server in a nearby EMEA or APAC data center, <strong>cutting 200+ ms round trips</strong>.</li>
+          <li>Brought up region-local proxies and mirrors so the full development toolchain works in London, Frankfurt and Singapore.</li>
+          <li>Contributing to a least-privilege sandbox that lets non-engineers safely use AI agents: allowlisted tools, MCP servers and URLs, plus container and OS-level controls (no shell, proxy-only network access).</li>
+          <li>Improved reliability of Sidekick, a Claude-based service that turns prompts into PRs and fixes reviewer comments: fixed workspace-creation race conditions, surfaced launch failures, and extended review monitoring to the full PR lifetime.</li>
         </ul>
       </article>
 
@@ -81,11 +85,12 @@
         <p class="where">Bloomberg LP <span class="dim">(Developer Experience)</span> <span class="sep">·</span> New York, NY</p>
         <p class="when">April 2024 &ndash; August 2026</p>
         <ul>
-          <li>Drove architecture and technical direction for static analysis across Bloomberg's codebase as team lead of STAAR (Static Analysis and Automated Refactoring); leading 6 engineers plus 2 contractors.</li>
-          <li>Operated and scaled the STAAR pipeline, a distributed static analysis system running over <strong>2.5 million jobs per week</strong> across tens of thousands of independent repositories.</li>
-          <li>Integrated static analysis into Bloomberg's meta-build system (berg) and CI platform (Devise), creating a unified interface across all supported languages.</li>
-          <li>Delivered coverage for all 6 of Bloomberg's tier one and tier two languages to satisfy EU DORA and SSDF regulatory requirements.</li>
-          <li>Partnered with the CISO to detect over 500 vulnerability/language permutations, including SQL injection and memory safety issues.</li>
+          <li>Led 6 engineers plus 2 contractors owning Bloomberg's static analysis platform, a Kafka-based distributed pipeline running <strong>2.5M+ jobs per week</strong> across tens of thousands of repos; wrote design docs, stayed about 50% hands-on, and championed AI agents on the team.</li>
+          <li>Drove the move to running analysis tools in containers, improving reliability, debuggability and the experience for check authors.</li>
+          <li>Integrated static analysis into the company build system and CI, giving every repository one interface across all supported languages.</li>
+          <li>Maintained Clang LibTooling, clang-tidy and clang-query integrations; reviewed C++ checks contributed by infrastructure teams.</li>
+          <li>Expanded coverage to all 6 tier-one and tier-two languages and, with the CISO's office, 500+ vulnerability checks (SQL injection, memory safety), meeting EU DORA and SSDF requirements.</li>
+          <li>Designed a multi-agent development workflow (architect, implementer, test, reviewer and compatibility-checker agents under a lead agent) that turns a feature request into a phased design doc and tested code with cross-model review (Claude Code, Codex); also used agents with MCP log search to triage production issues and measure how often failures occur.</li>
         </ul>
       </article>
 
@@ -94,10 +99,8 @@
         <p class="where">Bloomberg LP <span class="dim">(Trading Solutions)</span> <span class="sep">·</span> New York, NY</p>
         <p class="when">May 2022 &ndash; March 2024</p>
         <ul>
-          <li>Owned technical direction and delivery for the Options and Loans team within AIM, Bloomberg's buy-side OMS; leading 5 engineers.</li>
-          <li>Co-owned the C++ &ldquo;Order Trade Entry&rdquo; ticketing engine processing up to <strong>hundreds of millions of transactions daily</strong>.</li>
-          <li>Led delivery of Bond Forwards and Loans support in the C++ ticketing engine, a gating requirement for institutional clients onboarding onto AIM; drove design and execution while implementing core order/trade persistence logic hands-on.</li>
-          <li>Partnered with AIM product owners to scope and prioritize the roadmap, converting client requirements into technical designs and delivery plans.</li>
+          <li>Led 5 engineers on Bloomberg's buy-side order management system, co-owning its C++ order and trade entry engine, which processes up to <strong>hundreds of millions of transactions daily</strong>.</li>
+          <li>Delivered bond forward and loan support across multiple C++ services, required to onboard institutional clients: reference data validation, schema changes, and ORM and persistence work in a downstream transaction service; built key parts myself.</li>
         </ul>
       </article>
 
@@ -106,12 +109,10 @@
         <p class="where">Bloomberg LP <span class="dim">(Trading Solutions)</span> <span class="sep">·</span> New York, NY</p>
         <p class="when">October 2017 &ndash; May 2022</p>
         <ul>
-          <li>Tech lead for the cross-department integration between BSKT (Bloomberg's basket-trading product) and AIM, eliminating manual re-entry and bringing BSKT clients onto AIM.</li>
-          <li>Implemented a RabbitMQ-based queueing system for AIM's C++ ticketing engine, allowing durable messaging with high scaling.</li>
-          <li>Designed and implemented a Redis-backed distributed caching layer for the Order Defaults settings service &mdash; <strong>5&times; faster page loads, 50&times; lower latency</strong> on cached request types, with a &gt;99% hit rate.</li>
-          <li>Migrated 21 core services and libraries to Linux as part of Bloomberg's company-wide migration off legacy UNIX OSes (Solaris and AIX).</li>
-          <li>Led the migration of JavaScript UI components to a new WebKit-based rendering engine as part of a company-wide initiative.</li>
-          <li>Selected as a technical leader of the Trading Solutions refactoring working group, helping developers migrate legacy C++ to Linux.</li>
+          <li>Built a Redis-backed distributed cache for a settings service: <strong>5&times; faster page loads, 50&times; lower latency</strong> on cached requests, 99%+ hit rate.</li>
+          <li>Replaced a producer-coupled, database-backed queue with a general RabbitMQ messaging layer for the C++ trade engine's batch APIs.</li>
+          <li>Tech lead for integrating Bloomberg's basket-trading product with its order management system, eliminating manual re-entry of orders.</li>
+          <li>Ported 21 core C++ services and libraries from Solaris/AIX to Linux; technical leader in the department's Linux migration working group.</li>
         </ul>
       </article>
 
@@ -120,8 +121,7 @@
         <p class="where">Solace Corporation <span class="sep">·</span> Kanata, ON</p>
         <p class="when">April 2017 &ndash; August 2017</p>
         <ul>
-          <li>Implemented LDAP authentication in Java for the Solace Pivotal Cloud Foundry (PCF) tile.</li>
-          <li>Automated test environment provisioning with AWS CloudFormation, standing up pre-configured EC2 instances on demand.</li>
+          <li>Implemented LDAP authentication in Java for the Solace Cloud Foundry tile; automated AWS test environments with CloudFormation.</li>
         </ul>
       </article>
 
@@ -131,8 +131,7 @@
         <p class="when">June 2015 &ndash; March 2017</p>
         <ul>
           <li>Maintained and extended the C++ configuration management software for the Solace Messaging Appliance.</li>
-          <li>Designed and implemented a RESTful configuration management API in Python.</li>
-          <li>Redesigned the auto-generated Python command handling infrastructure around a polymorphic approach.</li>
+          <li>Designed and implemented a RESTful configuration API in Python; redesigned its generated command handling around polymorphism.</li>
         </ul>
       </article>
     </section>
