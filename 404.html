@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found — Griffin Garland</title>
+<!-- Keep this page out of search results. -->
+<meta name="robots" content="noindex">
+
+<!-- GitHub Pages serves this file for ANY missing address, including ones
+     inside folders (/games/oops). So every path here starts with "/":
+     a relative "styles.css" would break on /games/oops. -->
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="crt" aria-hidden="true"></div>
+
+<div class="window">
+  <div class="titlebar">
+    <span class="dots"><button type="button" class="r" aria-label="Close window"></button><button type="button" class="y" aria-label="Minimize window"></button><i class="g" aria-hidden="true"></i></span>
+    <span class="titletext">griffin@portfolio: ~ — zsh</span>
+  </div>
+
+  <main class="screen" id="main">
+    <p class="line"><span class="prompt">$</span> cd ~/<span id="missing">missing-page</span></p>
+    <h1 class="sr-only">Page not found</h1>
+    <div class="prose">
+      <p>cd: no such file or directory: <span id="missing2">missing-page</span></p>
+      <p>Try the <a href="/">home page</a> instead.</p>
+    </div>
+
+    <p class="line last"><span class="prompt">$</span> <span class="cursor" aria-hidden="true"></span></p>
+  </main>
+</div>
+
+<footer class="footbar">
+  <p class="line"><span class="prompt">$</span> ls ~/links</p>
+  <ul class="contact">
+    <li><a href="/">home</a></li>
+    <li><a href="/resume.html">resume</a></li>
+    <li><a href="/bread.html">bread</a></li>
+    <li><a href="/games/tetris.html">tetris</a></li>
+    <li><a href="/privacy.html">privacy</a></li>
+    <li><a href="https://www.linkedin.com/in/griffingarland/" rel="me noopener">linkedin</a></li>
+    <li><a href="https://github.com/griffingarland" rel="me noopener">github</a></li>
+  </ul>
+</footer>
+<script>
+  // Show the address the visitor actually tried, e.g. "games/oops".
+  // textContent (not innerHTML) so a crafted URL can't inject HTML.
+  (function () {
+    var path = location.pathname;
+    try { path = decodeURIComponent(path); } catch (e) { /* malformed %-escape: show it raw */ }
+    path = path.replace(/^\/+/, "");
+    if (!path || path === "404.html") return;
+    if (path.length > 60) path = path.slice(0, 57) + "...";
+    document.getElementById("missing").textContent = path;
+    document.getElementById("missing2").textContent = path;
+  })();
+</script>
+<script src="/minimize.js" defer></script>
+<script src="/close.js" defer></script>
+</body>
+</html>
