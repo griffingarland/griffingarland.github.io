@@ -14,7 +14,8 @@
           Helvetica, Arial, sans-serif;
   color-scheme: light dark;
 }
-/* Dark mode follows the visitor's OS setting. */
+/* Dark mode follows the visitor's browser/OS setting. Chrome has its own
+   setting (Settings > Appearance > Mode), separate from the Mac's. */
 @media (prefers-color-scheme: dark) {
   :root {
     --bg:     #1c1815;
