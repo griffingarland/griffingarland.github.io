@@ -159,8 +159,8 @@
      \resumeRole
       {Senior Software Engineer, Developer Experience}{August 2026 -- Present}
       \resumeItemListStart
-        \resumeItem{Revived and redesigned geo-affinity for Spaces, Bloomberg's containerized platform for developers and AI coding agents (now in beta): rewrote the stalled design, replaced a non-working user-location detection method, and used geo-DNS to route users to a VM and gRPC/Protobuf terminal server in a nearby EMEA or APAC data center, cutting 200+ ms round trips.}
-        \resumeItem{Brought up region-local proxies and mirrors so the full development toolchain works in London, Frankfurt and Singapore.}
+        \resumeItem{Cut round-trip latency by up to 225 ms for APAC and 75 ms for EMEA developers on Spaces, Bloomberg's containerized platform for developers and AI coding agents, by redesigning geo-affinity to run each user's VM and terminal server in a nearby data center (in beta).}
+        \resumeItem{Built the regional path end to end: geo-DNS routing to region-local gRPC/Protobuf terminal servers, a new user-location detection method, and local proxies and mirrors in London, Frankfurt and Singapore.}
         \resumeItem{Contributing to a least-privilege sandbox that lets non-engineers safely use AI agents: allowlisted tools, MCP servers and URLs, plus container and OS-level controls (no shell, proxy-only network access).}
         \resumeItem{Improved reliability of Sidekick, a Claude-based service that turns prompts into PRs and fixes reviewer comments: fixed workspace-creation race conditions, surfaced launch failures, and extended review monitoring to the full PR lifetime.}
       \resumeItemListEnd
@@ -169,7 +169,7 @@
       {Software Engineering Team Lead, Developer Experience}{April 2024 -- August 2026}
       \resumeItemListStart
         \resumeItem{Led 6 engineers plus 2 contractors owning Bloomberg's static analysis platform, a Kafka-based distributed pipeline running 2.5M+ jobs per week across tens of thousands of repos; wrote design docs, stayed about 50\% hands-on, and championed AI agents on the team.}
-        \resumeItem{Drove the move to running analysis tools in containers, improving reliability, debuggability and the experience for check authors.}
+        \resumeItem{Drove the move to running analysis tools in containers, improving reliability, debuggability and the experience for tool authors.}
         \resumeItem{Integrated static analysis into the company build system and CI, giving every repository one interface across all supported languages.}
         \resumeItem{Maintained Clang LibTooling, clang-tidy and clang-query integrations; reviewed C++ checks contributed by infrastructure teams.}
         \resumeItem{Expanded coverage to all 6 tier-one and tier-two languages and, with the CISO's office, 500+ vulnerability checks (SQL injection, memory safety), meeting EU DORA and SSDF requirements.}

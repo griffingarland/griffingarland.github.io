@@ -73,8 +73,8 @@
         <p class="where">Bloomberg LP <span class="dim">(Developer Experience)</span> <span class="sep">·</span> New York, NY</p>
         <p class="when">August 2026 &ndash; Present</p>
         <ul>
-          <li>Revived and redesigned geo-affinity for Spaces, Bloomberg's containerized platform for developers and AI coding agents (now in beta): rewrote the stalled design, replaced a non-working user-location detection method, and used geo-DNS to route users to a VM and gRPC/Protobuf terminal server in a nearby EMEA or APAC data center, <strong>cutting 200+ ms round trips</strong>.</li>
-          <li>Brought up region-local proxies and mirrors so the full development toolchain works in London, Frankfurt and Singapore.</li>
+          <li>Cut round-trip latency by <strong>up to 225 ms for APAC and 75 ms for EMEA</strong> developers on Spaces, Bloomberg's containerized platform for developers and AI coding agents, by redesigning geo-affinity to run each user's VM and terminal server in a nearby data center (in beta).</li>
+          <li>Built the regional path end to end: geo-DNS routing to region-local gRPC/Protobuf terminal servers, a new user-location detection method, and local proxies and mirrors in London, Frankfurt and Singapore.</li>
           <li>Contributing to a least-privilege sandbox that lets non-engineers safely use AI agents: allowlisted tools, MCP servers and URLs, plus container and OS-level controls (no shell, proxy-only network access).</li>
           <li>Improved reliability of Sidekick, a Claude-based service that turns prompts into PRs and fixes reviewer comments: fixed workspace-creation race conditions, surfaced launch failures, and extended review monitoring to the full PR lifetime.</li>
         </ul>
@@ -86,7 +86,7 @@
         <p class="when">April 2024 &ndash; August 2026</p>
         <ul>
           <li>Led 6 engineers plus 2 contractors owning Bloomberg's static analysis platform, a Kafka-based distributed pipeline running <strong>2.5M+ jobs per week</strong> across tens of thousands of repos; wrote design docs, stayed about 50% hands-on, and championed AI agents on the team.</li>
-          <li>Drove the move to running analysis tools in containers, improving reliability, debuggability and the experience for check authors.</li>
+          <li>Drove the move to running analysis tools in containers, improving reliability, debuggability and the experience for tool authors.</li>
           <li>Integrated static analysis into the company build system and CI, giving every repository one interface across all supported languages.</li>
           <li>Maintained Clang LibTooling, clang-tidy and clang-query integrations; reviewed C++ checks contributed by infrastructure teams.</li>
           <li>Expanded coverage to all 6 tier-one and tier-two languages and, with the CISO's office, 500+ vulnerability checks (SQL injection, memory safety), meeting EU DORA and SSDF requirements.</li>
